@@ -1,0 +1,61 @@
+{
+  "name": "ioadmin",
+  "version": "0.0.0",
+  "authors": [
+    "admin <admin@example.com>"
+  ],
+  "description": "An angular admin template",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-animate": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "underscore": "~1.8.1",
+    "angular-wizard": "~0.4.2",
+    "angular-ui-tree": "~2.2.0",
+    "jquery": "2.1.4",
+    "fontawesome": "~4.3.0",
+    "jqvmap": "*",
+    "weather-icons": "~1.3.2",
+    "angular-sanitize": "~1.4.7",
+    "chartjs": "~1.0.1",
+    "morrisjs": "~0.5.1",
+    "flot": "~0.8.3",
+    "jquery.sparkline.build": "~2.1.3",
+    "easypie": "~2.1.6",
+    "dripicons": "~1.0.0",
+    "angular-material": "~1.0.0",
+    "material-design-icons": "~1.0.1",
+    "flot.curvedlines": "~1.1.1",
+    "angular-messages": "~1.4.7",
+    "html5shiv": "~3.7.2",
+    "flot.tooltip": "~0.8.4",
+    "angular-resource": "~1.4.7",
+    "selectivizr": "~1.0.2",
+    "bootstrap": "~4.0",
+    "matchMedia": "~0.2.0",
+    "angular-ui-tinymce": "latest",
+    "textAngular": "latest",
+    "any-loader-ng": "latest",
+    "ng-img-crop": "~0.3.2",
+    "ngImgCropFullExtended": "latest",
+    "ng-file-upload": "latest",
+    "angular-file-upload": "latest",
+    "ng-jcrop": "latest",
+    "angular-cropper": "~0.8.4",
+    "angular-filereader": "latest",
+    "angular-moment": "latest",
+    "angular-trix": "^1.0.2"
+  },
+  "resolutions": {
+    "angular": "~1.5.0"
+  }
+}

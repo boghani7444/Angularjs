@@ -1,0 +1,227 @@
+<section class="page-padding"  data-ng-controller="addcloudCtrl">
+
+    <div class="divider"></div>
+
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3 style="text-transform:capitalize;">{{user.action.toLowerCase()}} Cloud Plan</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+            <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+            <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+              
+              <div class="form-group">
+                <md-input-container>
+                  <label>Name</label>                  
+                  <input type="text" class="form-control" required data-ng-model="user.plan_name">                  
+                </md-input-container>
+              </div>
+              
+              <div layout="row"> 
+                  <div flex="30">
+                
+                  <md-input-container>
+                      <div layout="row"> 
+                          <div flex="100">
+                          <div flex="20"  class="flex-20">
+                                <label>CPU Cores  </label>
+                          </div>
+                          <div flex="60"  class="flex-60">
+                            <input type="text"
+                           class="form-control"
+                           size="30" 
+                           name="cpu_cores"
+                           data-ng-trim='false'
+                           data-ng-model="user.cpu_cores"
+                           
+                            >
+                          </div>
+                          <div> &nbsp;&nbsp;GHZ
+                          </div>    
+                          </div>
+                      </div> 
+                  </md-input-container>
+                
+                  </div>
+                  <div flex="30">
+                
+                  <md-input-container>
+                    
+                           <label>Number of Cores  </label>
+                          
+                            <input type="text"
+                           class="form-control"
+                           size="30" 
+                           name="no_coures"
+                           data-ng-trim='false'
+                           data-ng-model="user.no_coures"                           
+                            >
+                          
+                      
+                  </md-input-container>
+                
+                  </div>
+                                     
+              </div>
+              <div layout="row"> 
+                  
+                  <div flex="30">
+                
+                  <md-input-container>
+                    <div layout="row"> 
+                          <div flex="100">
+                          <div flex="20"  class="flex-20">
+                                <label>RAM  </label>
+                          </div>
+                          <div flex="60"  class="flex-60">
+                            <input type="text"
+                           class="form-control"
+                           size="30" 
+                           name="ram"
+                           data-ng-trim='false'
+                           data-ng-model="user.ram"
+                           
+                            >
+                          </div>
+                          <div> &nbsp;&nbsp;GB
+                          </div>    
+                          </div>
+                      </div> 
+                  </md-input-container>
+                
+                  </div>
+              </div>
+              <div layout="row">   
+                <div flex="30">
+                
+                  <md-input-container>
+                    
+                                <label>Cloud Storage</label>
+                            <input type="text"
+                           class="form-control"
+                           size="40" 
+                           name="cloud_storage"
+                           data-ng-trim='false'
+                           data-ng-model="user.cloud_storage"                           
+                            >
+                       
+                       GB ( Enter "-1" for unmetered / unlimited )
+                       
+                  </md-input-container>
+                </div>
+                  
+                 
+              </div> 
+             <div layout="row">   
+                <div flex="30">
+                
+                  <md-input-container>
+                    <div layout="row"> 
+                          <div flex="100">                          
+                                <label>Data Transfer</label>
+                            <input type="text"
+                           class="form-control"
+                           size="30" 
+                           name="data_transfer"
+                           data-ng-trim='false'
+                           data-ng-model="user.data_transfer"
+                            >                          
+                           GB/Month ( Enter "-1" for unmetered / unlimited )                          
+                          </div>
+                      </div> 
+                  </md-input-container>
+                </div>
+                  
+                 <div flex="30">
+                
+                  <md-input-container>
+                    <div layout="row"> 
+                          <div flex="100">
+                          <div flex="20"  class="flex-20">
+                                <label>Monthly Price  </label>
+                          </div>
+                          <div flex="60"  class="flex-60">
+                            <input type="text"
+                           class="form-control"
+                           size="40" 
+                           name="monthly_price"
+                           data-ng-trim='false'
+                           data-ng-model="user.monthly_price"                           
+                            >
+                          </div>
+                          <div> &nbsp;&nbsp;$
+                          </div>    
+                          </div>
+                      </div> 
+                  </md-input-container>
+                
+                  </div> 
+              </div>    
+              
+              <div layout="row">   
+                <div flex="30">
+                
+                  <md-input-container>
+                      <div flex="100">
+                  <label>Description </label>
+                  <textarea cols="100" rows="4" ng-model='user.description' id="description" class="materialize-textarea"></textarea>
+                      </div>         
+                  </md-input-container>
+                </div>
+                  
+                  
+              </div> 
+                
+              
+               
+              <div layout="row">   
+                  
+                 <div flex="30">
+                
+                  <md-input-container>
+                    <label>Plan URL   </label>
+                    <input type="text"
+                           class="form-control"
+                           size="100" 
+                           name="plan_url"
+                           data-ng-trim='false'
+                           data-ng-model="user.plan_url"                           
+                            >
+                  </md-input-container>                
+                  </div> 
+              </div>
+              
+              
+              
+               
+                
+                  
+              <input type="hidden" ng-model="user.id">     
+              <input type="hidden" ng-model="user.submitaction">
+              <input type="hidden" ng-model="user.submit">
+              <input type="hidden" ng-model="user.id_company">     
+              
+              
+
+              <md-button class="btn-width-medium md-raised md-primary" ng-click='submitForm()' ng-disabled='canSubmit()'>Submit</md-button>
+        
+              <div class="callout-elem callout-elem-info">
+                <p>Submit button will be active only when all fields are valid.</p>
+
+        
+              </div>
+            </form>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</section>    

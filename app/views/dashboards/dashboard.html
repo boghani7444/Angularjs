@@ -1,0 +1,230 @@
+<section class="page-padding" data-ng-controller="dashboardCtrl">
+<div class="row">
+    <div class="col-md-12">
+        <div class="md-whiteframe-z1">
+          <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                  <h3>Profile Completeness</h3>
+                  <span class="flex"></span>
+                  <button class="md-icon-button md-button " aria-label="Profile Completeness">
+                        <md-icon md-svg-icon="dist/img/icons/ic_view_module_24px.svg"></md-icon>
+                  </button>
+                </div>
+          </md-toolbar>
+        </div>
+        
+        <div class="md-whiteframe-z1">
+            <md-content>
+                <div class="md-content__body">
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <span style="color: #414059; font-size: 14px; font-weight: bold; float: left; text-align: center; width: 100%; padding: 5px;">Hosting Assured Status</span>
+                            <div id="circle" style="background: {{ color }}"><span style="{{text_css}}">{{ text }}</span></div>
+                            <div class="text-center" style="padding: 14px">
+                                <a class="padding-3" href="#/joinhac" title="{{assured_text}}">{{assured_text}}</a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div zingchart id="Progress1" zc-json="Progress1" zc-height="200" zc-width="100%"></div>
+                            <div class="text-center">
+                                <a class="padding-3" href="#/plans/plans" title="Add Plans">Add Plans</a>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div zingchart id="Progress2" zc-json="Progress2" zc-height="200" zc-width="100%"></div>
+                            <div class="text-center">
+                                <a class="padding-3 " href="#/company/editcompanydetail" title="Add Data Center">Add Data Center</a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <div zingchart id="Progress3" zc-json="Progress3" zc-height="200" zc-width="100%"></div>
+                            <div class="text-center">
+                                <a class="padding-3" href="#/company/editcompanydetail" title="Add Support">Add Support Information</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+            <md-content>
+                <div class="md-content__body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <uib-progressbar class="progress-striped" animate="false" value="total" type="success"></uib-progressbar>
+                            <b style="position: absolute; top: 17%; color: #fff; font-size: 12px; margin-left: 50px;">Plans Completeness ({{ Plan_adding }}%) + Data Center Locations ({{ Data_Center }}%) + Support Sphere ({{ Support }}%) + Hosting Assured Status ({{ Hosting_Assured }}%) = {{total}}% </b>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</div>    
+<div class="divider"></div>    
+<div class="row">
+    <div class="col-md-12">
+        <div class="md-whiteframe-z1">
+            <md-content>
+                <zingchart id="myChart" zc-json="myJson" zc-width="980"></zingchart>
+            </md-content>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="md-whiteframe-z1">
+            <md-content>
+                <div class="md-content__body">
+                    <div class="row" style="border:1px solid gray">
+                        <div class="col-md-3 text-center padding-15" style="background-color: #c3c3c3;">
+                            <a href="#/viewreport/daily" title="Daily Reports" style="color: #FFF;">Daily Reports</a>
+                        </div>
+                        <div class="col-md-3 text-center padding-15">
+                            <a href="#/viewreport/week" title="Weekly Reports">Weekly Reports</a>
+                        </div>
+                    
+                        <div class="col-md-3 text-center padding-15">
+                            <a href="#/viewreport/month" title="Monthly Reports">Monthly Reports</a>
+                        </div>
+                        <div class="col-md-3 text-center padding-15 no-border">
+                            <a href="#/viewreport/year" title="Yearly Reports">Yearly Reports</a>
+                        </div>
+                    </div>
+                </div>
+          </md-content>
+        </div>
+    </div>
+</div>
+<div class="divider"></div>
+<div class="row">
+	<div class="col-md-4">
+		<div class="md-whiteframe-z1">
+		  <md-toolbar class="md-accent">
+			<div class="md-toolbar-tools">
+			  <h3>Quote Request</h3>
+			  <span class="flex"></span>
+			  <button class="md-icon-button md-button " aria-label="View Source">
+				<md-icon md-svg-icon="dist/img/icons/ic_question_answer_24px.svg"></md-icon>
+			  </button>
+			</div>
+		  </md-toolbar>
+
+		  <md-content>
+			<div class="md-content__body">
+				<div class="row">
+					<div class="col-md-8">Shared Hosting Quotes:</div>
+                                        <div class="col-md-4 text-right"><b><a href="#/quote/sharedhostingquotereplied" title="Unread">{{sharedquoteunread}}</a> / <a href="#/quote/sharedhostingquote" title="All">{{sharedquote}}</a></b></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-8">Dedicated Hosting Quotes:</div>
+                                        <div class="col-md-4 text-right"><b><a href="#/quote/dedicatedhostingquotereplied" title="Unread">{{dedicatedquoteunread}}</a> / <a href="#/quote/dedicatedhostingquote" title="All">{{dedicatedquote}}</a></b></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-8">VPS Hosting Quotes:</div>
+                                        <div class="col-md-4 text-right"><b><a href="#/quote/vpshostingquotereplied" title="Unread">{{vpsquoteunread}}</a> / <a href="#/quote/vpshostingquotereplied" title="All">{{vpsquote}}</a></b></div>
+				</div>
+			</div>
+		  </md-content>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="md-whiteframe-z1">
+		  <md-toolbar class="md-accent">
+			<div class="md-toolbar-tools">
+			  <h3>Hosting Assured Complaints</h3>
+			  <span class="flex"></span>
+			  <button class="md-icon-button md-button " aria-label="View Source">
+				<md-icon md-svg-icon="dist/img/icons/ic_verified_user_24px.svg"></md-icon>
+			  </button>
+			</div>
+		  </md-toolbar>
+
+		  <md-content>
+			<div class="md-content__body">
+				<div class="row">
+					<div class="col-md-8">Unread User Replied:</div>
+					<div class="col-md-4 text-right"><a href="#/haccompres"><b>{{totunreadhaccomp}}</b></a></div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-8">User Replied:</div>
+					<div class="col-md-4 text-right"><a href="#/haccompres"><b>{{tothaccompres}}</b></a></div>
+				</div>
+			</div>
+		  </md-content>
+		</div>
+	</div>
+	
+	<div class="col-md-4">
+		<div class="md-whiteframe-z1">
+		  <md-toolbar class="md-accent">
+			<div class="md-toolbar-tools">
+			  <h3>Reviews </h3>
+			  <span class="flex"></span>
+			  <button class="md-icon-button md-button " aria-label="View Source">
+				<md-icon md-svg-icon="dist/img/icons/ic_star_24px.svg"></md-icon>
+			  </button>
+			</div>
+		  </md-toolbar>
+
+		  <md-content>
+			<div class="md-content__body">
+				<div class="row">
+					<div class="col-md-8">Total Reviews:</div>
+					<div class="col-md-4 text-right"><a href="#/review/index"><b>{{totreviews}}</b></a></div>
+				</div>
+			</div>
+		  </md-content>
+		</div>
+	</div>
+</div>
+<div class="divider"></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="md-whiteframe-z1">
+          <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                  <h3>Hosting Plans</h3>
+                  <span class="flex"></span>
+                  <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_view_module_24px.svg"></md-icon>
+                  </button>
+                </div>
+          </md-toolbar>
+
+          <md-content>
+                <div class="md-content__body">
+                        <div class="row">
+                                <div class="col-md-8">Shared Plan:</div>
+                                <div class="col-md-4 text-right"><b><a href="#/plans/plans" title="Pending / All">{{totsharedplanpending}} </a>/ <a href="#/plans/plans" title="Pending / All">{{totsharedplan}}</a></b></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                                <div class="col-md-8">Cloud Shared Plan:</div>
+                                <div class="col-md-4 text-right"><b><a href="#/plans/plans" title="Pending / All">{{totcloudsharedplanpending}}</a> / <a href="#/plans/plans" title="Pending / All">{{totcloudsharedplan}}</a></b></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                                <div class="col-md-8">Dedicated Server:</div>
+                                <div class="col-md-4 text-right"><b><a href="#/plans/plans" title="Pending / All">{{totdedicatedplanpending}} </a>/<a href="#/plans/plans" title="Pending / All"> {{totdedicatedplan}}</a></b></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                                <div class="col-md-8">VPS Plan:</div>
+                                <div class="col-md-4 text-right"><b><a href="#/plans/plans" title="Pending / All">{{totvpsplanpending}}</a> / <a href="#/plans/plans" title="Pending / All">{{totvpsplan}}</a></b></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                                <div class="col-md-8">Cloud VPS Plan:</div>
+                                <div class="col-md-4 text-right"><b><a href="#/plans/plans" title="Pending / All">{{totcloudvpsplanpending}} </a>/<a href="#/plans/plans" title="Pending / All"> {{totcloudvpsplan}}</a></b></div>
+                        </div>
+                </div>
+          </md-content>
+        </div>
+    </div>
+</div>
+<div class="divider"></div>
+</section>

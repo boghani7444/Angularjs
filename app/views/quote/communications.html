@@ -1,0 +1,158 @@
+<section class="page-padding"  data-ng-controller="quotecommuCtrl">
+<div class="divider"></div>
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3>Quote Request Communications</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+          <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+          <section class="table-flip-scroll">
+            <table class="table table-bordered table-striped cf">
+				<thead class="cf">
+					 <tr>
+						<th width="5%">ID</th>
+						<th width="40%">Subject</th>
+						<th width="10%">Quote ID</th>
+						<th width="10%">Type</th>
+						<th width="20%">Updated</th>
+						<th width="15%">Status</th>
+						<th width="3%" style="text-align:center">Action</th>
+					</tr>
+				</thead>
+				<tbody ng-hide="quotecommu">
+				<tr><td colspan="7" style="text-align:center">You don't have any quote request communications as of now.</td></tr>
+				</tbody>
+				<tbody data-ng-repeat="quotecomm in quotecommu">
+					<tr style="background-color:{{activePosition == $index ? '#F3F3F3' : ($index % 2 ) == 0 ? '#FFFFFF' : '#f9f9f9' }};font-weight:{{quotecomm.host_read == 0 ? 'bold' : 'normal' }}" >
+						<td>{{quotecomm.id}}</td>		
+						<td>{{quotecomm.subject}}</td>						
+						<td>{{quotecomm.id_quote}}</td>
+						<td>{{quotecomm.quote_type | quote_type}}</td>
+						<td>{{quotecomm.date_updated | badDateToISO | date:'dd/MM/yyyy h:mma'}}</td>
+						<td>{{quotecomm.status | quotecommustatus}}</td>
+						<td><md-button class="btn-width-medium md-accent" data-ng-click="expandquotecommu(quotecomm.id,$index)">
+						<md-icon  data-id="{{quotecomm.id}}" md-svg-src="dist/img/icons/ic_pageview_24px.svg"></md-icon> {{activePosition == $index ? 'Hide' : 'View'}} </md-button></td>
+					</tr>
+					<tr class="extra-row"  style="background-color:#F3F3F3" ng-show="activePosition == $index"><td colspan="7" >
+						<table class="table table-striped">
+							<!--<tr>
+								<td width="20%"><b>Quote requested by:</b></td>
+								<td width="80%">{{quotecomm.name}}</td>
+							</tr>-->
+							<tr ng-if="quotecommudata[$index].quotedata">
+								<td colspan="2">
+									<div class="md-whiteframe-z1">
+									  <md-toolbar class="md-accent md-bar md-theme-default md-whiteframe-z1">
+									  <div class="md-toolbar-tools">
+										  <h3 class="col-md-5 nopadding">{{quotecomm.quote_type | quote_type}} Quote: <b>{{(quotecommudata[$index].quotedata.title) ? quotecommudata[$index].quotedata.title :  quotecommudata[$index].quotedata.id}}</b></h3>
+										<h3 class="col-md-7 text-right">by: <b>{{quotecomm.name}}</b> on: <b>{{quotecommudata[$index].quotedata.date_create | badDateToISO | date:'dd/MM/yyyy h:mma'}}</b></h3>
+									  </div>
+									</md-toolbar>
+									
+									  <div class="quote md-content__body" ng-if="quotecomm.quote_type == 0" style="padding-bottom:0px !important;"> 
+										<div class="row">
+											<div class="col-md-3"><b>Hard Disk Space:</b> {{quotecommudata[$index].quotedata.hdd_space | quoteunlimited}} </div>
+											<div class="col-md-3"><b>Data Transfer:</b> {{quotecommudata[$index].quotedata.data_transfer | quoteunlimited}} </div>
+											<div class="col-md-3"><b>Number of Emails:</b> {{quotecommudata[$index].quotedata.email_accounts}}</div>
+											<div class="col-md-3"><b>Price:</b> ${{quotecommudata[$index].quotedata.monthly_price}} / month</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="(quotecommudata[$index].quotedata | quoteservicecount)>0">
+											<div class="col-md-12"><b>Services:</b>	{{quotecommudata[$index].quotedata | quoteservice}}                    
+											</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="quotecommudata[$index].quotedata.quote_desc!=''">
+											<div class="col-md-12"><b>Additional Requirements:</b> {{quotecommudata[$index].quotedata.quote_desc}} </div>
+										</div>
+									</div>
+									
+									<div class="quote md-content__body" ng-if="quotecomm.quote_type == 1" style="padding-bottom:0px !important;"> 
+										<div class="row">
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.hdd_space!=''"><b>Hard Disk Space:</b> {{quotecommudata[$index].quotedata.hdd_space | quoteunlimited}} </div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.hdd_rpm>0"><b>Hard Disk Rpm:</b> {{quotecommudata[$index].quotedata.hdd_rpm}} </div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.hdd_count!=0"><b>Hrad Disk Count:</b> {{quotecommudata[$index].quotedata.hdd_count}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.os!=''"><b>OS:</b> {{quotecommudata[$index].quotedata.os}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.managed!=''"><b>Managed:</b>{{quotecommudata[$index].quotedata.managed}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.price>0"><b>Price:</b> ${{quotecommudata[$index].quotedata.price}} / month</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="(quotecommudata[$index].quotedata | quoteservicecount)>0">
+											<div class="col-md-12"><b>Services:</b>                 
+												{{quotecommudata[$index].quotedata | quoteservice}}                    
+											</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="quotecommudata[$index].quotedata.quote_desc!=''">
+											<div class="col-md-12"><b>Additional Requirements:</b> {{quotecommudata[$index].quotedata.quote_desc}} </div>
+										</div>
+									</div>
+									
+									<div class="quote md-content__body" ng-if="quotecomm.quote_type == 2" style="padding-bottom:0px !important;">  
+										<div class="row">
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.hdd_space!=0 && quotecommudata[$index].quotedata.hdd_space!=''"><b>Hard Disk Space:</b> {{quotecommudata[$index].quotedata.hdd_space | quoteunlimited}} </div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.data_transfer!='' && quotecommudata[$index].quotedata.data_transfer!=0"><b>Data Transfer:</b> {{quotecommudata[$index].quotedata.data_transfer | quoteunlimited}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.number_of_domain!='' && quotecommudata[$index].quotedata.number_of_domain!=0"><b>Number of Domain:</b> {{quotecommudata[$index].quotedata.number_of_domain | quotenounlimited}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.managed!=''"><b>Managed:</b> {{quotecommudata[$index].quotedata.managed}}</div>
+											<div class="col-md-3" ng-if="quotecommudata[$index].quotedata.price>0"><b>Price:</b> ${{quotecommudata[$index].quotedata.price}} / month</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="(quotecommudata[$index].quotedata | quoteservicecount)>0">
+											<div class="col-md-12"><b>Services:</b>                
+												{{quotecommudata[$index].quotedata | quoteservice}}                    
+											</div>
+										</div>
+										<div class="clear"><br></div>
+										<div class="row" ng-if="quotecommudata[$index].quotedata.quote_desc!=''">
+											<div class="col-md-12"><b>Additional Requirements:</b> {{quotecommudata[$index].quotedata.quote_desc}} </div>
+										</div>
+									</div>
+									<div class="quote md-content__body" style="padding-top:0px !important; ">
+										<div class="clear"><hr style="padding:0px;" /></div>
+										  <div class="clear"></div>
+										  <div class="row">
+											<div class="col-md-9"><b>Suggested Plan:</b> <a href="{{quotecommudata[$index].plandata.plan_url}}" target="_blank">{{quotecommudata[$index].plandata.name}} (${{quotecommudata[$index].plandata.price}}/month)</a>
+											</div>
+											<div class="col-md-3">
+											<b>Price Quoted:</b> ${{quotecomm.quotation_price}}
+											</div>
+										  </div>
+									  </div>
+									
+								  </div>
+								</td>
+							</tr>
+							<tr>
+								<td><img class="header__user-picture"  src="/images/company_logo/{{quotecomm.id_company}}.jpg"> <small><b>You</b></small><br><small style="color:grey">{{quotecomm.date_created | badDateToISO | date:'dd/MM/yyyy h:mma' }}</small></td>
+								<td>{{quotecommudata[$index].description}}</td>
+							</tr>
+							<tr data-ng-repeat="reply in quotecommudata[$index].replies">
+								<td style="width:20%"> <img class="header__user-picture"  src="/images/company_logo/{{quotecomm.id_company}}.jpg"ng-show="reply.sent_by == 1"> <img class="header__user-picture"  src="/storage/app/avatar/{{quotecomm.id_user}}.jpg" ng-show="reply.sent_by == 0"> <small><b>{{reply.sent_by == 1 ? 'You' : quotecomm.name }}</b></small><br><small style="color:grey">{{reply.date_created | badDateToISO | date:'dd/MM/yyyy h:mma' }}</small></td>
+								<td>{{reply.message}}</tr>
+							<tr ng-hide="quotecomm.status == 1">
+								<td><b>Post reply:</b></td>
+								<td><textarea id="txtreply" ng-model="quotecommudata[$index].reply" name="txtreply" cols="90" rows="5" class="form-control"></textarea></td>
+							</tr>
+							<tr ng-hide="quotecomm.status == 1">
+								<td style="text-align: center;" colspan="2"><button type="button" class="md-raised md-primary md-button md-ink-ripple" aria-label="Button" ng-click="postreply(quotecomm.id,$index);"  ><span class="ng-scope">Send Reply</span></button><aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside></td>
+							</tr>
+							<tr ng-show="quotecomm.status == 1"><td colspan="2" style="text-align:center"><b>This quote is marked as closed</b></td></tr>
+						</table>
+					</td></tr>
+				</tbody>
+            </table>
+          </section>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</section>    

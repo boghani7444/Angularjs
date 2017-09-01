@@ -1,0 +1,96 @@
+<section class="page-padding"  data-ng-controller="addcouponCtrl">
+
+    <div class="divider"></div>
+
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3 style="text-transform:capitalize;">{{user.actionfrm.toLowerCase()}} Coupon</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+
+            <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                        <div layout="row" style="margin-top:20px;">
+                            <div flex="50">{{action}}
+                                <md-input-container>
+                                    <label>Coupon Title <sup style="color:red">*</sup><small> (eq. 10% Off on Dedicated Servers)</small></label>
+                                    <input size="50" md-maxlength="50" type="text" class="form-control" required data-ng-model="user.title">
+                                </md-input-container>
+                            </div>
+							<div flex="50">
+                                <md-input-container>
+                                    <label>Coupon Code <sup style="color:red">*</sup><small> (eq. DEDI10OFF)</small></label>
+                                    <input size="30" md-maxlength="30" required type="text" class="form-control" data-ng-model="user.coupon_code" ng-disabled="(user.action=='edit')?true:false">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row" style="margin-top:20px;">
+                            <div flex="50">
+                                <md-input-container style="width:90%">
+                                    <label>Offer<sup style="color:red">*</sup><small>(Percentage of discount, e.g. 5, 10, 20 etc...)</small> </label>
+                                    <input size="30"  type="number" required class="form-control" data-ng-model="user.offer_value">
+                                </md-input-container>
+                            </div>
+							<div flex="50" >
+                                <md-input-container>                  
+                                    <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Type of discount <sup style="color:red">*</sup></label>
+                                    <md-radio-group data-ng-model="user.type" layout="row" ng-required="true">
+                                        <md-radio-button value="flat" data-ng-model="user.type" class="md-primary">Flat</md-radio-button>
+                                        <md-radio-button value="percentage" data-ng-model="user.type" class="md-primary">Percentage</md-radio-button>
+                                    </md-radio-group>
+                                </md-input-container>
+                            </div>  
+                        </div>
+                        <div layout="row" >
+                            <div flex="100">
+								<label>Coupon Expiry date</label><br />
+                                <md-datepicker size="30" aria-label="End date" data-ng-model="user.end_date"
+                                               md-placeholder="Enter end date" md-open-on-focus md-min-date="user.start_date"></md-datepicker>
+                            </div>
+                        </div>
+                        <div layout="row" style="margin-top:30px;">
+                            <div flex="100">
+                                <md-input-container>
+                                    <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Coupon Applies to</label>
+                                    <md-checkbox data-ng-repeat='plan in allplans' class="md-primary" ng-required="true"
+                                                 value="{{plan}}"  ng-checked="user.plan_type.indexOf(plan) > -1" aria-label="Plan type"
+                                                 ng-click="togglepaySelection(plan)"
+                                                 >
+                                        {{plan}} 
+                                    </md-checkbox>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        
+
+                        <div layout="row" style="margin-top:20px;">
+                            <div flex="100">
+                                <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Coupon Description <small>(e.g. This coupon will be applicable to new clients ...)</small></label>                  
+                                
+                                <trix-editor angular-trix ng-model="user.description" ></trix-editor>
+                            </div>
+                        </div>
+
+                        <div layout="row"  >
+                            <div flex="100" style="text-align:center">
+                                <br />
+                                <input type="hidden" ng-model="user.id">     
+                                <input type="hidden" ng-model="user.submitaction">
+                                <input type="hidden" ng-model="user.submit">
+                                <md-button data-ng-click="submitForm()" class="btn-width-medium md-raised md-primary" data-ng-disabled="canSubmit()" title="Submit button will be active only when all fields are valid.">Submit</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</section>    

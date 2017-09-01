@@ -1,0 +1,63 @@
+<section class="page-padding"  data-ng-controller="dailyreportCtrl">
+
+    <div class="divider"></div>
+
+    <div class="col-md-12">
+        <div class="md-whiteframe-z1">
+          <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <a style="margin-right: 10px;" href="#/dashboard" title="Return to Dashboard"><md-icon md-svg-icon="dist/img/icons/ic_arrow_back_24px.svg"></md-icon></a>
+              <h3>Daily Profile View/Website Visits Reports</h3>
+              <span class="flex"></span>
+              <button class="md-icon-button md-button " ng-init="clickedh=false" ng-click="clickedh=!clickedh" aria-label="View Report for This Week">
+                <md-icon md-svg-icon="dist/img/icons/filter.svg"></md-icon>
+              </button>
+            </div>
+          </md-toolbar>
+
+          <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <section class="table-flip-scroll">
+                        <div style="z-index: 1;position: absolute;left: 66%;border: 1px solid gray;margin-top: -15px" class="col-md-5" ng-show="clickedh">
+                            <form name="form_constraints" class="form-validation" novalidate>
+                                <div class="col-md-12">
+                                    Start Date: 
+                                    <md-datepicker name="start_date" ng-model="user.start_date" md-open-on-focus></md-datepicker>
+                                </div>
+                                <div class="col-md-12">
+                                    End Date&nbsp;&nbsp;:
+                                    <md-datepicker name="end_date" ng-model="user.end_date" md-open-on-focus></md-datepicker>
+                                </div>
+                                <div class="col-md-10 text-center" style="padding: 10px">
+                                    <md-button class="md-primary md-raised" ng-click="submitForm()">Open</md-button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <zingchart id="myChart1" zc-json="myJson1" zc-width="960"></zingchart>
+                            </div>
+                        </div>
+                        <div class="row" style="border:1px solid gray">
+                            <div flex="100" class="col-md-3 text-center padding-15"  style="background-color: #c3c3c3;">
+                                <a href="#/viewreport/daily" title="Daily Reports" style="color: #fff;">Daily Reports</a>
+                            </div>
+                            
+                            <div class="col-md-3 text-center padding-15">
+                                <a href="#/viewreport/week" title="Weekly Reports">Weekly Reports</a>
+                            </div>
+
+                            <div class="col-md-3 text-center padding-15">
+                                <a href="#/viewreport/month" title="Monthly Reports">Monthly Reports</a>
+                            </div>
+                            <div class="col-md-3 text-center padding-15 no-border">
+                                <a href="#/viewreport/year" title="Yearly Reports">Yearly Reports</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+          </md-content>
+        </div>
+    </div>
+</section>

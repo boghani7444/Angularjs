@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>TheWebHostingDir.com Hosting Company Control Panel</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link
+rel="SHORTCUT ICON" href="https://www.thewebhostingdir.com/images/favicon.ico" /><link
+rel="icon" href="https://www.thewebhostingdir.com/images/favicon.ico" type="image/x-icon">
+  <!--[if lte IE 9]>
+  <script type="text/javascript" src="dist/js/matchMedia.js?ver=1.5.6"></script>
+  <script type="text/javascript" src="dist/js/matchMedia.addListener.js?ver=1.5.6"></script>
+  <script type="text/javascript" src="dist/js/html5shiv.min.js?ver=1.5.6"></script>
+  <script type="text/javascript" src="dist/js/selectivizr.js?ver=1.5.6"></script>
+  <link rel="stylesheet" href="dist/css/ie9.css?ver=1.5.6">
+  <![endif]-->
+
+  <!-- Theme's own CSS file -->
+  <link rel="stylesheet" href="dist/css/font-awesome.min.css?ver=1.5.6">
+  <link rel="stylesheet" href="dist/css/bootstrap.min.css?ver=1.5.6">
+  <link rel="stylesheet" href="dist/css/angular-material.min.css?ver=1.5.91">
+  <link id="app_main_css" rel="stylesheet" href="dist/css/main.css?ver=1.5.6">
+
+  <!-- Include Jquery in the vendor folder -->
+  <script src="dist/js/jquery.min.js?ver=1.5.6"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,700,600,400'
+        rel='stylesheet' type='text/css'>
+
+</head>
+<body data-ng-app="app" id="app" ng-controller="NavCtrl as navigationController" class="navigation--small">
+    
+
+    
+  <div data-ng-controller="ColorSwitchLayoutCtrl"></div>
+  
+    
+  <aside data-ng-hide="navigationController.checkIfOwnPage()" data-ng-include=" 'app/common/navigation/navigation.html' "
+         id="nav-container"></aside>
+
+  <div data-ng-class="{'ownpage' : navigationController.checkIfOwnPage(), 'slided-right' : navigationController.sidebar_opened}"
+       class="view-container" layout="column" flex>
+
+    <section data-ng-hide="navigationController.checkIfOwnPage()" data-ng-include=" 'app/common/layout/header.html' "
+             id="header" class="top-header"></section>
+
+    <section data-ng-view="" id="content" class="main-content" md-scroll-y></section>
+  </div>
+
+<!-- Theme main app compiled with grunt (replace with below scripts if not using grunt) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script src="https://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
+<script> 
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["88ef986648a88bbdf0db90d7cb8356e3"];
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+<style type="text/css">
+.progress {
+    background-color: #c3c3c3;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    height: 30px;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.progress-bar-success {
+    background-color: #5cb85c;
+}
+
+.progress-striped .progress-bar-info {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-info {
+    background-color: #00c0ef;
+}
+
+.progress-striped .progress-bar-primary {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-primary {
+    background-color: #3c8dbc;
+}
+
+.progress-striped .progress-bar-muted {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-muted {
+    background-color: #605ca8;
+}
+
+.progress-striped .progress-bar-warning {
+     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-warning {
+    background-color: #f0ad4e;
+}
+.progress-bar {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    line-height: 20px;
+    text-align: center;
+    transition: width 0.6s ease 0s;
+    width: 0;
+}
+a.padding-3{
+    padding: 1px;
+    font-size: 14px;
+}
+.padding-15{
+    padding: 15px;
+    border-right: 1px solid gray;
+}
+.no-border{
+    border: none;
+}
+.padding-3 md-icon{
+    width: 12%;
+}
+#circle {
+    border: 3px solid gray;
+    border-radius: 150px;
+    height: 140px;
+    margin-left: 50px;
+    margin-top: 43px;
+    width: 140px;
+}
+#circle > span {
+    color: #fff;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 18%;
+    padding: 23%;
+}
+</style>
+
+<script id="app_js" type="text/javascript" src="dist/js/app.js?ver=1.6.12"></script>
+<script type="text/javascript">
+    var owa_baseUrl = 'https://www.thewebhostingdir.com/';
+var owa_cmds = owa_cmds || [];
+owa_cmds.push(['setSiteId', '2a219dd18cce4ea4087b56743d495045']);
+owa_cmds.push(['trackPageView']);
+owa_cmds.push(['trackClicks']);
+//owa_cmds.push(['trackDomStream']);
+
+(function() {
+    var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
+    owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl );
+    _owa.src = owa_baseUrl + 'analytics/owa.tracker-combined-min.js';
+    var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
+       
+        //OWATracker.trackAction('Cooking', 'Recipe Print',  'Best Chicken Parmesan Recipe', 10);
+}());
+//]]>
+</script>
+<!-- End Open Web Analytics Code -->
+</body>
+</html>

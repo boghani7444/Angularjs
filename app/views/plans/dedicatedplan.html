@@ -1,0 +1,450 @@
+<section class="page-padding"  data-ng-controller="adddedicatedCtrl">
+    <div class="divider"></div>
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3 style="text-transform:capitalize;">{{user.action.toLowerCase()}} Dedicated Server</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+                            <md-tab label="Plan Information">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="80">
+                                            <md-input-container>
+                                                <label>Dedicated Server Plan Name <sup style="color:red">*</sup></label>                  
+                                                <input type="text" class="form-control" required data-ng-model="user.dname" size="90" ng-maxlength="50" ng-pattern="/^[a-zA-Z0-9- ]*$/">
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="20">
+                                            <md-input-container>  
+                                                <label>OS <sup style="color:red">*</sup></label>
+                                                <md-select aria-label="Test select" ng-model="user.dos" id="dos">
+                                                    <md-option value="W">Windows</md-option>
+                                                    <md-option value="L" ng-selected="selected">Linux (CentOS, Ubuntu, etc...)</md-option>
+                                                    <md-option value="B" >Both available</md-option>
+                                                </md-select>
+                                            </md-input-container>								
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="80">
+                                            <md-input-container>
+                                                <label>Plan URL <sup style="color:red">*</sup></label>
+                                                <input type="url"
+                                                       class="form-control" required                         
+                                                       data-ng-model="user.plan_url"
+                                                       size="90"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="20">
+                                            <md-icon md-svg-src="dist/img/icons/ic_pageview_24px.svg" class="md-accent ng-isolate-scope" aria-hidden="true"></md-icon> <a href="{{user.plan_url}}" target="_blank" style="font-weight:bold;color:#0D6CC0"> View Plan Page</a> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Plan Summary <sup style="color:red">*</sup></label>
+                                            <trix-editor angular-trix ng-model="user.plan_summary" ng-required="true"></trix-editor>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Plan Features">
+                                <md-content class="md-padding">
+                                    <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Features of These Plans:</label>
+                                    <md-input-container>                  
+                                            <md-checkbox data-ng-repeat='(key,item) in features' class="md-primary" value='{{item.id}}' ng-init="item.flag == 'true' ? user.catelist[item.id]=true :user.catelist[item.id]=false"  ng-model="user.catelist[item.id]" aria-label="" style="width:280px;">{{item.feature}}</md-checkbox>
+                                    </md-input-container>
+                                    <div layout="row">   
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Port Speed in Mbps <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="setup"
+                                                       size="15"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.port_speed"
+                                                       >
+                                            </md-input-container>
+
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Bandwidth in TB <small>(Enter -1 for Unlimited)(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       size="30" 
+                                                       name="bandwidth"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.bandwidth">
+                                            </md-input-container>
+                                        </div> 
+                                    </div>
+                                    <div layout="row">   
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Server Management Options <small>(optional)</small></label>
+                                                <md-select aria-label="Fully Managed?" ng-model="user.managed">
+                                                    <md-option value="Y">Fully Managed - included in price</md-option>
+                                                    <md-option value="N" ng-selected="selected">Self Managed</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Number of Free IP's included in Plan <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"                            
+                                                       name="ip"
+                                                       size="30"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.ip"                           
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Account Setup <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.instant_setup">
+                                                    <md-option value="1">Instant Setup</md-option>
+                                                    <md-option value="4" >Less than 4 Hours</md-option>
+                                                    <md-option value="8" >Less than 8 Hours</md-option>
+                                                    <md-option value="24" >Less than 24 Hours</md-option>
+                                                    <md-option value="25" >24 - 48 Hours</md-option>
+                                                    <md-option value="48" >2+ Business Days</md-option>
+                                                    <md-option value="-1" >None of these</md-option>
+                                                    <md-option value="-2" >Not Specified</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Backup Option <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.backup_option">
+                                                    <md-option value="">N/A</md-option>
+                                                    <md-option value="daily">Daily</md-option>
+                                                    <md-option value="weekly">Weekly</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label>Do you support IPV6 with this plan? <small>(optional)</small></label>
+                                                <md-select ng-model="user.ipv6_support">
+                                                    <md-option value="1">Yes</md-option>
+                                                    <md-option value="0">No</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label>Server Backup Options <small>(e.g., 500 GB Backup storage included) (optional)</small></label>
+                                                <textarea ng-model="user.backup_info" cols="140" rows="4" id="textarea1" class="materialize-textarea"></textarea>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label>Additional Server Management information <small>(e.g., Fully Managed options available for $30/Mo.) (optional)</small></label>
+                                                <textarea ng-model="user.management_info" cols="140" rows="4" id="textarea1" class="materialize-textarea"></textarea>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="PROCESSOR">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-autocomplete
+                                                md-selected-item="processor_typesel"
+                                                md-selected-item-change="pmselectedItemChange(item)"
+                                                md-search-text="pmsearchText"
+                                                md-search-text-change="pmsearchTextChange(pmsearchText)"
+                                                md-items="item in pmqueryprocessorSearch(pmsearchText)"
+                                                md-item-text="item.pmname"
+                                                md-delay="300"
+                                                md-floating-label="Processor Model (optional)"
+                                                md-min-length="0"
+                                                >
+                                                <md-item-template>
+                                                    <span md-highlight-text="pmsearchText" style="font-weight:bold">{{item.pmname}}</span>
+                                                </md-item-template>
+                                                <md-not-found>
+                                                    No matching "{{pmsearchText}}" were found. Create a new one!
+                                                </md-not-found>
+                                            </md-autocomplete>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Number of Processors <small>(optional)</small></label>
+                                                <md-select aria-label="Number of Processors" ng-model="user.processor_num">
+                                                    <md-option value="1">Single</md-option>
+                                                    <md-option value="2">Dual</md-option>
+                                                    <md-option value="4">Quad</md-option>
+                                                    <md-option value="6">Hexa</md-option>
+                                                    <md-option value="-1">Other</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="RAM">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-autocomplete
+                                                md-selected-item="ram_typesel"
+                                                md-selected-item-change="rtselectedItemChange(item)"
+                                                md-search-text="rtsearchText"
+                                                md-search-text-change="rtsearchTextChange(rtsearchText)"
+                                                md-items="item in rtquerySearch(rtsearchText)"
+                                                md-item-text="item.ramtype"
+                                                md-delay="300"
+                                                md-floating-label="Ram Type (optional)"
+                                                md-min-length="0"
+                                                >
+                                                <md-item-template>
+                                                    <span md-highlight-text="rtsearchText" style="font-weight:bold">{{item.ramtype}}</span>
+                                                </md-item-template>
+                                                <md-not-found>
+                                                    No matching "{{rtsearchText}}" were found. Create a new one!
+                                                </md-not-found>
+                                            </md-autocomplete>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Total RAM in GB (eg. 8, 16, 64, etc...)<small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="ram"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.ram"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label>Clock Speed / Other RAM info <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="type_of_ram"
+                                                       size="125"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.type_of_ram"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="HDD">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Hard Drive Capacity in GB <small>(e.g. 500, 1000, 2000, etc...) (optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       size="30" 
+                                                       name="hdd_capacity"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.hdd_capacity"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Total Hard Drives <small>(e.g. 1, 2, 4, 8, etc...)(optional)</small></label>
+                                                <md-select aria-label="Total Hard Drives" ng-model="user.hdd_count">
+                                                    <md-option value="1">1</md-option>
+                                                    <md-option value="2">2</md-option>
+                                                    <md-option value="3">3</md-option>
+                                                    <md-option value="4">4</md-option>
+                                                    <md-option value="5">5</md-option>
+                                                    <md-option value="6">6</md-option>
+                                                    <md-option value="7">7</md-option>
+                                                    <md-option value="8">8</md-option>
+                                                    <md-option value="9">9</md-option>
+                                                    <md-option value="10">10</md-option>
+                                                    <md-option value="11">11</md-option>
+                                                    <md-option value="12">12</md-option>
+                                                    <md-option value="13">13</md-option>
+                                                    <md-option value="14">14</md-option>
+                                                    <md-option value="15">15</md-option>
+                                                    <md-option value="16">16</md-option>
+                                                    <md-option value="17">17</md-option>
+                                                    <md-option value="18">18</md-option>
+                                                    <md-option value="19">19</md-option>
+                                                    <md-option value="20">20</md-option>
+                                                    <md-option value="21">21</md-option>
+                                                    <md-option value="22">22</md-option>
+                                                    <md-option value="23">23</md-option>
+                                                    <md-option value="24">24</md-option>
+                                                    <md-option value="25">25</md-option>
+                                                    <md-option value="26">26</md-option>
+                                                    <md-option value="27">27</md-option>
+                                                    <md-option value="28">28</md-option>
+                                                    <md-option value="29">29</md-option>
+                                                    <md-option value="30">30</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Harddisk RPM <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="hdd_rpm"
+                                                       size="30" 
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.hdd_rpm"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-autocomplete
+                                                md-selected-item="hdd_typesel"
+                                                md-selected-item-change="hddselectedItemChange(item)"
+                                                md-search-text="hddsearchText"
+                                                md-search-text-change="hdsearchTextChange(hddsearchText)"
+                                                md-items="item in hddquerySearch(hddsearchText)"
+                                                md-item-text="item.hddtype"
+                                                md-delay="300"
+                                                md-floating-label="Harddisk Type (optional)"
+                                                md-min-length="0"
+                                                >
+                                                <md-item-template>
+                                                    <span md-highlight-text="hddsearchText" style="font-weight:bold">{{item.hddtype}}</span>
+                                                </md-item-template>
+                                                <md-not-found>
+                                                    No matching "{{hddsearchText}}" were found. Create a new one!
+                                                </md-not-found>
+                                            </md-autocomplete>                            
+
+
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Raid Level <small>(optional)</small></label>
+                                                <md-select aria-label="Raid Level" ng-model="user.raid_level">
+                                                    <md-option value="0">Raid Level 0</md-option>
+                                                    <md-option value="1">Raid Level 1</md-option>
+                                                    <md-option value="5">Raid Level 5</md-option>
+                                                    <md-option value="6">Raid Level 6</md-option>
+                                                    <md-option value="10">Raid Level 10</md-option>
+                                                    <md-option value="-1">All Raid options vailable</md-option>
+                                                    <md-option value="-2">Other</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Other Information about Hard Drive <small>(optional)</small></label>
+                                                <input type="text"
+                                                       class="form-control"                            
+                                                       name="hdd_info"
+                                                       size="30" 
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.hdd_info"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Pricing">
+                                <md-content class="md-padding">
+                                    <div layout="row">   
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Monthly Price (USD) <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       size="30" 
+                                                       name="price"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.price"                           
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">	
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Setup Fees (USD) <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       size="30" 
+                                                       name="setup"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.setup"
+                                                       >
+                                            </md-input-container>
+                                        </div> 
+                                        <div flex="50">	
+                                            <md-input-container>
+                                                <label>Money Back Guarantee <small>(optional)</small></label>
+                                                <md-select ng-model="user.money_back">
+                                                    <md-option value="7">Yes - 7 Days</md-option>
+                                                    <md-option value="14">Yes - 14 Days</md-option>
+                                                    <md-option value="30">Yes - 1 Month</md-option>
+                                                    <md-option value="90">Yes - 3 Months</md-option>
+                                                    <md-option value="100">Yes - 3+ Months</md-option>
+                                                    <md-option value="-1">No</md-option>
+                                                    <md-option value="-2">Not Specified</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div> 
+                                    </div>
+                                    <div layout="row">
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>	
+                        <div layout="row"  >
+                            <div flex="100" style="text-align:center">
+                                <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                                <br />
+                                <input type="hidden" ng-model="user.id">     
+                                <input type="hidden" ng-model="user.submitaction">     
+                                <input type="hidden" ng-model="user.dcname">     
+                                <md-button class="btn-width-medium md-raised md-primary" ng-click='submitForm()' ng-disabled='canSubmit()' >Submit</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+    <style>
+        .md-tab{
+            font-size: 13px !important;
+        }
+    </style>
+</section>    

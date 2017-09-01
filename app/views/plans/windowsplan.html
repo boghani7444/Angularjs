@@ -1,0 +1,340 @@
+<section class="page-padding"  data-ng-controller="addwindowsCtrl">
+
+    <div class="divider"></div>
+
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3  style="text-transform:capitalize;">{{user.action.toLowerCase()}} Windows Hosting Plan</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+
+            <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+                            <md-tab label="Plan Information">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="70">                  
+                                            <md-input-container>
+                                                <label>Name of the Windows Hosting Plan <sup style="color:red">*</sup></label>                  
+                                                <input type="text" class="form-control" required data-ng-model="user.sname" size="80" ng-maxlength="50" ng-pattern="/^[a-zA-Z0-9- ]*$/">                  
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="30">
+                                            <md-input-container>        
+                                                <label>Storage Type <sup style="color:red!important">*</sup></label>
+                                                <md-select aria-label="Storage Type" ng-model="user.storage_type" ng-required="true" id="storage_type">
+                                                    <md-option value="Partial SSD">Partial SSD</md-option>
+                                                    <md-option value="Pure SSD" >Pure SSD</md-option>
+                                                    <md-option value="SATA" >SATA</md-option>
+                                                    <md-option value="SAS" >SAS</md-option>
+                                                    <md-option value="Cloud (SAN / NAS)" >Cloud (SAN / NAS)</md-option>
+                                                    <md-option value="Cloud (SAN/NAS) with SSD" >Cloud (SAN/NAS) with SSD</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="70">
+                                            <md-input-container>
+                                                <label>Plan URL <sup style="color:red">*</sup></label>
+                                                <input type="url"
+                                                       class="form-control" required
+                                                       data-ng-model="user.plan_url"
+                                                       size="80"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="30">
+                                            <md-icon md-svg-src="dist/img/icons/ic_pageview_24px.svg" class="md-accent ng-isolate-scope" aria-hidden="true"></md-icon> <a href="{{user.plan_url}}" target="_blank" style="font-weight:bold;color:#0D6CC0"> View Plan Page</a> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Plan Description <sup style="color:red">*</sup></label>
+                                            <trix-editor angular-trix ng-model="user.sextras" ng-required="true"></trix-editor>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Features">
+                                <md-content class="md-padding" style="padding-top:20px !important; ">
+                                    <div layout="row"  style="padding-bottom:20px !important; ">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Features of These Plans: <small>(optional)</small></label>
+                                            <md-input-container>       
+                                                <md-checkbox data-ng-repeat='(key,item) in features' class="md-primary" value='{{item.id}}' ng-init="item.flag == 'true' ? user.catelist[item.id] = true : user.catelist[item.id] = false"  ng-model="user.catelist[item.id]" aria-label="Checkbox 1" style="width:280px;">
+                                                    {{item.feature}} 
+                                                </md-checkbox>
+                                            </md-input-container><br />
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Account Setup <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.instant_setup">
+                                                    <md-option value="1">Instant Setup</md-option>
+                                                    <md-option value="4" >Less than 4 Hours</md-option>
+                                                    <md-option value="8" >Less than 8 Hours</md-option>
+                                                    <md-option value="24" >Less than 24 Hours</md-option>
+                                                    <md-option value="25" >24 - 48 Hours</md-option>
+                                                    <md-option value="48" >2+ Business Days</md-option>
+                                                    <md-option value="-1" >None of these</md-option>
+                                                    <md-option value="-2" >Not Specified</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>SSL Certificate: <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.ssl_certificate">
+                                                    <md-option value="Y">Included in this Price</md-option>
+                                                    <md-option value="N">Not Included in this Price</md-option>
+                                                    <md-option value="A">Purchase additionally</md-option>
+                                                    <md-option value="S">Shared SSL</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Webmail <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.webmail">
+                                                    <md-option value="None">None</md-option>
+                                                    <md-option value="Horde">Horde</md-option>
+                                                    <md-option value="SmarterMail">SmarterMail</md-option>
+                                                    <md-option value="Microsoft Exchange">Microsoft Exchange</md-option>
+                                                    <md-option value="Roundcube">Roundcube</md-option>
+                                                    <md-option value="Rainloop">Rainloop</md-option>
+                                                    <md-option value="Zimbra">Zimbra</md-option>
+                                                    <md-option value="Atmail ">Atmail </md-option>
+                                                    <md-option value="SquirrelMail">SquirrelMail</md-option>
+                                                    <md-option value="Hastymail">Hastymail</md-option>
+                                                    <md-option value="MailPie">MailPie</md-option>
+                                                    <md-option value="Xeams">Xeams</md-option>
+                                                    <md-option value="AfterLogic ">AfterLogic </md-option>
+                                                    <md-option value="FastMail">FastMail</md-option>
+                                                    <md-option value="Kite">Kite</md-option>
+                                                    <md-option value="Litmus Scope">Litmus Scope</md-option>
+                                                    <md-option value="Other">Other</md-option>
+                                                </md-select>
+                                            </md-input-container>                               							</div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Website Builder <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.website_builder">
+                                                    <md-option value="None">None</md-option>
+                                                    <md-option value="RVSiteBuilder">RVSiteBuilder</md-option>
+                                                    <md-option value="CM4All Sites">Sites</md-option>
+                                                    <md-option value="BaseKit">BaseKit</md-option>
+                                                    <md-option value="Parallels Web Presence Builder">Parallels Web Presence Builder</md-option>
+                                                    <md-option value="Other">Other</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Control Panel <small>(optional)</small></label>
+                                                <md-select ng-model="user.control_panel">
+                                                    <md-option value="SolusVM">SolusVM</md-option>
+                                                    <md-option value="OnApp">OnApp</md-option>
+                                                    <md-option value="vePortal">vePortal</md-option>
+                                                    <md-option value="Parallels Virtuozzo">Parallels Virtuozzo</md-option>
+                                                    <md-option value="WebsitePanel">WebsitePanel</md-option>
+                                                    <md-option value="Other">Other</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Backup Option <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.backup_option">
+                                                    <md-option value="">N/A</md-option>
+                                                    <md-option value="daily">Daily</md-option>
+                                                    <md-option value="weekly">Weekly</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Quotas">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Harddisk Space in GB <small>(Enter -1 for Unlimited) (optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="hdd_space"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.hdd_space"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Data Transfer in GB <small>(Enter -1 for Unlimited) (optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="confirm_type"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.data_transfer">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Number of Email Adress <small>(Enter -1 for Unlimited) (optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="email_accounts"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.email_accounts"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Number of Domains allowed <small>(Enter -1 for Unlimited) (optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="num_domains"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.num_domains">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>FTP Access <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.ftp_access">
+                                                    <md-option value="Y">Yes</md-option>
+                                                    <md-option value="N" ng-selected="selected">No</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Sub Domains: <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.sub_domain">
+                                                    <md-option value="Y">Yes</md-option>
+                                                    <md-option value="N" ng-selected="selected">No</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Pricing">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Monthly Price (USD) <small>(optional)</small></label>
+                                                <input 	type="number"
+                                                        class="form-control"
+                                                        name="type_something"
+                                                        data-ng-trim='false'
+                                                        data-ng-model="user.monthly_price"
+                                                        >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Quaterly Price (USD) <small>(optional)</small></label>
+                                                <input 	type="number"
+                                                        class="form-control"
+                                                        name="quaterly_price"
+                                                        data-ng-trim='false'
+                                                        data-ng-model="user.quaterly_price"
+                                                        >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Half Yearly Price (USD) <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="half_yearly_price"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.half_yearly_price"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Yearly Price (USD) <small>(optional)</small></label>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="yearly_price"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="user.yearly_price"
+                                                       >
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_public_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Offer Free Domain Registration <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.free_domain">
+                                                    <md-option value="Y">Yes</md-option>
+                                                    <md-option value="N" ng-selected="selected">No</md-option>
+                                                </md-select>	
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_settings_backup_restore_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Money Back Guarantee <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="user.money_back">
+                                                    <md-option value="7">Yes - 7 Days</md-option>
+                                                    <md-option value="14">Yes - 14 Days</md-option>
+                                                    <md-option value="30">Yes - 30 Days</md-option>
+                                                    <md-option value="31">Yes - More than 30 Days</md-option>
+                                                    <md-option value="-2">Not Specified</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>	
+                        </md-tabs>
+                        <div layout="row"  >
+                            <div flex="100" style="text-align:center">
+                                <br />
+                                <input type="hidden" ng-model="user.id">     
+                                <input type="hidden" ng-model="user.submitaction">     
+                                <input type="hidden" ng-model="user.scname">     
+                                <md-button class="btn-width-medium md-raised md-primary" ng-click='submitForm()' ng-disabled='canSubmit()' >Submit</md-button>
+                                <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</section>    

@@ -1,0 +1,81 @@
+<section class="page-padding"  data-ng-controller="hacCtrl">
+
+    <div class="divider"></div>
+
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3>Hosting Assured Complaints and Resolutions</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+          <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+          <section class="table-flip-scroll">
+            <table class="table table-bordered table-striped cf" ng-if="complaints" >
+				<thead class="cf">
+					 <tr>
+						<th width="5%">ID</th>
+						<th width="60%">Subject</th>
+						<th width="20%">Updated</th>
+						<th width="15%">Status</th>
+						<th width="3%" style="text-align:center">Action</th>
+					</tr>
+				</thead>
+				<tbody data-ng-repeat="complaint in complaints">
+					<tr style="background-color:{{activePosition == $index ? '#F3F3F3' : ($index % 2 ) == 0 ? '#FFFFFF' : '#f9f9f9' }};font-weight:{{complaint.host_read == 0 ? 'bold' : 'normal' }}" >
+						<td>{{complaint.id}}</td>						
+						<td>{{complaint.subject}}</td>
+						<td>{{complaint.date_updated | badDateToISO | date:'dd/MM/yyyy h:mma'}}</td>
+						<td>{{complaint.status | hacstatus}}</td>
+						<td><md-button class="btn-width-medium md-accent" data-ng-click="expandcomplaint(complaint.id,$index)">
+						<md-icon  data-id="{{complaint.id}}" md-svg-src="dist/img/icons/ic_pageview_24px.svg"></md-icon> {{activePosition == $index ? 'Hide' : 'View'}} </md-button></td>
+					</tr>
+					<tr class="extra-row"  style="background-color:#F3F3F3" ng-show="activePosition == $index"><td colspan="7" >
+						<table class="table table-striped">
+							<tr>
+								<td width="20%"><b>User Name:</b></td>
+								<td width="80%">{{complaint.name}}</td>
+							</tr>
+							<tr>
+								<td width="20%"><b>User Email:</b></td>
+								<td width="80%">{{compdata[$index].email}}</td>
+							</tr>
+							<tr>
+								<td><b>Created Date:</b></td>
+								<td>{{complaint.date_created | badDateToISO | date:'dd/MM/yyyy h:mma'}}</td>
+							</tr>
+							<tr>
+								<td><b>Complaint Description:</b></td>
+								<td>{{compdata[$index].description}}</td>
+							</tr>
+							<tr data-ng-repeat="reply in compdata[$index].replies">
+								<td><img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/company-logo/{{complaint.id_company}}.jpg" ng-show="reply.sent_by == 1" title="Online"> <img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/avatar/{{complaint.id_user}}.jpg" ng-show="reply.sent_by == 0 && complaint.fbid == 0" title="{{complaint.last_online == 1 ? 'Online' : 'Offline'}}"> <img class="header__user-picture"  ng-src="https://graph.facebook.com/v2.6/{{ complaint.fbid }}/picture" ng-show="reply.sent_by == 0 && complaint.fbid > 0" title="{{complaint.last_online == 1 ? 'Online' : 'Offline'}}"><div class="online" ng-show="reply.sent_by == 1" title="Online" ></div><div class="{{complaint.last_online == 1 ? 'online' : 'offline'}}" ng-show="reply.sent_by == 0" title="{{complaint.last_online == 1 ? 'Online' : 'Offline'}}"></div> <img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/images/hosting-assured-company.png" ng-show="reply.sent_by == 2" > <small><b>{{reply.sent_by == 1 ? 'You' : (reply.sent_by == 2) ? 'Hosting Assured Program': complaint.name }}</b></small>
+                                                                </td>
+                                                                <td>{{reply.message}}<br><div align="right"><small style="color:grey" class="text-right">{{reply.date_created| badDateToISO | date:'dd/MM/yyyy h:mma' }}</small></td></tr>
+							<tr>
+								<td style="text-align: center;"><b>Post Reply:</b></td>
+								<td><textarea id="txtreply" ng-model="compdata[$index].reply" name="txtreply" cols="90" rows="5" class="form-control"></textarea></td>
+							</tr>
+							<tr>
+								<td style="text-align: center;" colspan="2"><button type="button" class="md-raised md-primary md-button md-ink-ripple" aria-label="Button" ng-click="postreply(complaint.id,$index);"  ><span class="ng-scope">Send Reply</span></button><aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside></td>
+							</tr>
+						</table>
+					</td></tr>
+				</tbody>
+            </table>
+              <div ng-if="!complaints" class="text-center">
+                            You don't have any complaints as of now.
+                        </div>
+          </section>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</section>    

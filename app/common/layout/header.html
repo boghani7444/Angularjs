@@ -1,0 +1,98 @@
+<md-toolbar class="header-toolbar" layout="row">
+  <div class="md-toolbar-tools">
+    <md-button class="header-toggle mfb-component md-icon-button" aria-label="Settings" ng-click="navigationController.toggleLeft()">
+      <span class="md-toggle-icon header__menu-button" style="">
+        <md-icon class="mfb-component__main-icon--resting" md-svg-icon="dist/img/icons/ic_menu_24px.svg"></md-icon>
+        <md-icon class="mfb-component__main-icon--active" md-svg-icon="dist/img/icons/ic_arrow_back_24px.svg"></md-icon>
+      </span>
+    </md-button>
+	<h1 flex="100" class="app-name" ng-controller="companylinkCtrl"><a href="https://www.thewebhostingdir.com/hosting-provider/{{companyslug}}/product-profile" target="_blank" title="View Profile"><u>{{companyname}}</u></a> - TheWebHostingDir.com Control Panel</h1>
+    <!--<h1 flex="70" flex-gt-md="25" class="app-name">{{app_name}}</h1>-->
+    <!--<div class="header-autocomplete" flex="60" hide-sm hide-md data-ng-controller="siteAutocompleteCtrl as autocompletectrl">
+      <form ng-submit="$event.preventDefault()">
+        <md-autocomplete
+                ng-disabled="autocompletectrl.isDisabled"
+                md-no-cache="autocompletectrl.noCache"
+                md-selected-item="autocompletectrl.selectedItem"
+                md-search-text-change="autocompletectrl.searchTextChange(autocompletectrl.searchText)"
+                md-search-text="autocompletectrl.searchText"
+                md-selected-item-change="autocompletectrl.selectedItemChange(item)"
+                md-items="item in autocompletectrl.querySearch(autocompletectrl.searchText)"
+                md-item-text="item.display"
+                md-min-length="0"
+                placeholder="Search for a page you want to go" class="header__autocomplete">
+          <md-item-template class="site-autocomplete">
+            <a class="site-autocomplete__link" ng-href="#/{{item.url}}">
+              <img ng-show="item.image != null" alt="user" class="site-autocomplete__image" ng-src="{{item.image}}" />
+              <md-icon ng-show="item.icon != null" md-svg-src="{{item.icon}}" class="site-autocomplete__icon md-accent"></md-icon>
+              <span md-highlight-text="autocompletectrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+            </a>
+          </md-item-template>
+          <md-not-found>
+            No matches found for "{{autocompletectrl.searchText}}".
+          </md-not-found>
+        </md-autocomplete>
+      </form>
+    </div>-->
+    <span flex="5"></span>
+    <!--
+    <md-switch flex="5" hide-sm ng-click="navigationController.toggleLeft()" aria-label="Switch 1">
+    </md-switch>
+    -->
+    <div flex="5">
+      <md-button ng-href="#/dashboard" class="md-icon-button" >
+        <md-tooltip>
+         Notifications
+        </md-tooltip>
+        <md-icon md-svg-icon="dist/img/icons/ic_notifications_on_24px.svg"></md-icon>
+		<b class="badge bg-color-red bounceIn animated" style=" background: #D32F2F none repeat scroll 0 0;
+    border-radius: 50%;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1) inset, 0 -1px 0 rgba(0, 0, 0, 0.07) inset;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: normal;
+    padding: 2px 4px 3px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 0px;" ng-controller="notificationCtrl"> {{totalnotifications}} </b>
+      </md-button>
+	  
+    </div>
+<!--    <div flex="5" ng-controller="HeaderNavMenu as headermenuctrl">
+      <md-menu>
+        <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+          <md-icon md-svg-icon="dist/img/icons/ic_more_vert_24px.svg"></md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="headermenuctrl.changepass()">
+              <md-icon class="md-primary md-theme-default" md-svg-icon="dist/img/icons/ic_vpn_key_24px.svg" md-menu-align-target></md-icon>
+              Change Password
+            </md-button>
+          </md-menu-item>            
+          <md-menu-item>
+            <md-button ng-click="headermenuctrl.contactsupport()">
+              <md-icon class="md-primary md-theme-default" md-svg-icon="dist/img/icons/ic_help_24px.svg" md-menu-align-target></md-icon>
+              Contact Support
+            </md-button>
+          </md-menu-item>              
+          <md-menu-item>
+            <md-button ng-click="headermenuctrl.logout($event)">
+              <md-icon class="md-primary md-theme-default" md-svg-icon="dist/img/icons/ic_lock_24px.svg" md-menu-align-target></md-icon>
+              Logout
+            </md-button>
+          </md-menu-item>          
+        </md-menu-content>
+      </md-menu>
+    </div>-->
+    
+    <a ng-controller="profileimgCtrl" flex="5" href="/users/profile">
+        <img id="profileimg" class="header__user-picture" alt="user-picture" ng-href="{{profileimg}}" ng-src="{{profileimg}}" />
+    </a>
+  </div>
+</md-toolbar>
+<div class="loader-back" data-loading><div class="loader">...loading</div></div>

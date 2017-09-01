@@ -1,0 +1,424 @@
+<section class="page-padding"  data-ng-controller="plansCtrl">
+    <div class="divider"></div>
+    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+    <div>
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Shared Hosting Plans</h3>
+                    <span class="flex"></span>
+                    <button class="md-button " aria-label="View Source" title="Add Plan" ng-click="addshredplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.sharedans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="splan in plans.sharedans">
+                                    <td><a href="{{splan.plan_url}}" target="_blank">{{splan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{splan.monthly_price}}/mo</td>
+                                    <td>{{splan.hdd_space| hddspace}}</td>
+                                    <td>{{splan.data_transfer| bandwidth}}</td>
+                                    <td>{{splan.plan_status| planstatus}}</td>
+                                    <td>{{splan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td>
+                            <md-icon  data-ng-click="editplan(splan.planid, splan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, splan.planid, splan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.sharedans" class="text-center">
+                            No Shared Hosting plan found! <a href="javascript:void(0);" ng-click="addshredplan();">Click here to add a new Shared Hosting Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Windows Hosting Plans</h3>
+                    <span class="flex"></span>
+                    <button class="md-button " aria-label="View Source" title="Add Plan" ng-click="addwindowsplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.windowsans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="wplan in plans.windowsans">
+                                    <td><a href="{{wplan.plan_url}}" target="_blank">{{wplan.planname}}</a><br /><small>( Views: {{wplan.pageviews}} / Clicks: {{wplan.lead}} )</small></td>
+                                    <td>${{wplan.monthly_price}}/mo</td>
+                                    <td>{{wplan.hdd_space| hddspace}}</td>
+                                    <td>{{wplan.data_transfer| bandwidth}}</td>
+                                    <td>{{wplan.plan_status| planstatus}}</td>
+                                    <td>{{wplan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td>
+                            <md-icon  data-ng-click="editplan(wplan.planid, wplan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, wplan.planid, wplan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.windowsans" class="text-center">
+                            No Windows Hosting plan found! <a href="javascript:void(0);" ng-click="addwindowsplan();">Click here to add a new Windows Hosting Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>WordPress Hosting Plans</h3>
+                    <span class="flex"></span>
+                    <button class="md-button " aria-label="View Source" title="Add Plan" ng-click="addwordpressplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.wordpressans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="wplan in plans.wordpressans">
+                                    <td><a href="{{wplan.plan_url}}" target="_blank">{{wplan.planname}}</a><br /><small>( Views: {{wplan.pageviews}} / Clicks: {{wplan.lead}} )</small></td>
+                                    <td>${{wplan.monthly_price}}/mo</td>
+                                    <td>{{wplan.hdd_space| hddspace}}</td>
+                                    <td>{{wplan.data_transfer| bandwidth}}</td>
+                                    <td>{{wplan.plan_status| planstatus}}</td>
+                                    <td>{{wplan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td>
+                            <md-icon  data-ng-click="editplan(wplan.planid, wplan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, wplan.planid, wplan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.wordpressans" class="text-center">
+                            No WordPress Hosting plan found! <a href="javascript:void(0);" ng-click="addwordpressplan();">Click here to add a new WordPress Hosting Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Free Hosting Plans</h3>
+                    <span class="flex"></span>
+                    <button class="md-button " aria-label="View Source" title="Add Plan" ng-click="addfreeplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.freeans" >
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="fplan in plans.freeans">
+                                    <td><a href="{{fplan.plan_url}}" target="_blank">{{fplan.planname}}</a><br /><small>( Views: {{fplan.pageviews}} / Clicks: {{fplan.lead}} )</small></td>
+                                    <td>${{fplan.monthly_price}}/mo</td>
+                                    <td>{{fplan.hdd_space| hddspace}}</td>
+                                    <td>{{fplan.data_transfer| bandwidth}}</td>
+                                    <td>{{fplan.plan_status| planstatus}}</td>
+                                    <td>{{fplan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td>
+                            <md-icon  data-ng-click="editplan(fplan.planid, fplan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, fplan.planid, fplan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.freeans" class="text-center">
+                            No Free Hosting plan found! <a href="javascript:void(0);" ng-click="addfreeplan();">Click here to add a new Free Hosting Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Cloud Shared Hosting Plans</h3>
+                    <span class="flex"></span>
+                    <button class="md-button " aria-label="View Source" title="Add Plan" ng-click="addcloudshredplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.cloudsharedans" >
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="csplan in plans.cloudsharedans">
+                                    <td><a href="{{csplan.plan_url}}" target="_blank">{{csplan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{csplan.monthly_price}}/mo</td>
+                                    <td>{{csplan.hdd_space| hddspace}}</td>
+                                    <td>{{csplan.data_transfer| bandwidth}}</td>
+                                    <td>{{csplan.plan_status| planstatus}}</td>
+                                    <td>{{csplan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td>
+                            <md-icon  data-ng-click="editplan(csplan.planid, csplan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, csplan.planid, csplan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.cloudsharedans" class="text-center">
+                            No Cloud Shared Hosting plan found! <a href="javascript:void(0);" ng-click="addcloudshredplan();">Click here to add a new Cloud Shared Hosting Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Dedicated Server Plans</h3>
+                    <span class="flex"></span>
+                    <button title="Add Plan" class="md-button " ng-click="adddedicatedplan();" aria-label="View Source" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> 
+                        Add Plan</button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.dedicatedans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="splan in plans.dedicatedans">
+                                    <td><a href="{{splan.plan_url}}" target="_blank">{{splan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{splan.price}}/mo</td>
+                                    <td>{{splan.hdd_capacity| hddspace}}</td>
+                                    <td>{{splan.bandwidth| bandwidth}}</td>
+                                    <td>{{splan.plan_status| planstatus}}</td>
+                                    <td>{{splan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td><md-icon  data-ng-click="editplan(splan.planid, splan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, splan.planid, splan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.dedicatedans" class="text-center">
+                            No Dedicated Server plan found! <a href="javascript:void(0);" ng-click="adddedicatedplan();">Click here to add a new Dedicated Server Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>VPS Plans</h3>
+                    <span class="flex"></span>
+                    <button  title="Add Plan" class="md-button " aria-label="View Source" ng-click="addvpsplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.vpsans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="splan in plans.vpsans">
+                                    <td><a href="{{splan.plan_url}}" target="_blank">{{splan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{splan.price}}/mo</td>
+                                    <td>{{splan.space| hddspace}}</td>
+                                    <td>{{splan.transfer| bandwidth}}</td>
+                                    <td>{{splan.plan_status| planstatus}}</td>
+                                    <td>{{splan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td><md-icon  data-ng-click="editplan(splan.planid, splan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, splan.planid, splan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.vpsans" class="text-center">
+                            No VPS plan found! <a href="javascript:void(0);" ng-click="addvpsplan();">Click here to add a new VPS Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Windows VPS Plans</h3>
+                    <span class="flex"></span>
+                    <button  title="Add Plan" class="md-button " aria-label="View Source" ng-click="addwindowsvpsplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.windowsvpsans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="splan in plans.windowsvpsans">
+                                    <td><a href="{{splan.plan_url}}" target="_blank">{{splan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{splan.price}}/mo</td>
+                                    <td>{{splan.space| hddspace}}</td>
+                                    <td>{{splan.transfer| bandwidth}}</td>
+                                    <td>{{splan.plan_status| planstatus}}</td>
+                                    <td>{{splan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td><md-icon  data-ng-click="editplan(splan.planid, splan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, splan.planid, splan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.windowsvpsans" class="text-center">
+                            No Windows VPS plan found! <a href="javascript:void(0);" ng-click="addwindowsvpsplan();">Click here to add a new Windows VPS Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+        <div class="md-whiteframe-z2">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>Cloud VPS Plans</h3>
+                    <span class="flex"></span>
+                    <button  title="Add Plan" class="md-button " aria-label="View Source" ng-click="addcloudvpsplan();" >
+                        <md-icon md-svg-icon="dist/img/icons/ic_add_24px.svg"></md-icon> Add Plan
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf" ng-if="plans.cvpsans">
+                            <thead class="cf">
+                                <tr>
+                                    <th>Plan Name ( Views / Clicks )</th>
+                                    <th class="numeric">Price</th>
+                                    <th class="numeric">Web Space</th>
+                                    <th class="numeric">Transfer</th>
+                                    <th class="numeric">Plan Status</th>
+                                    <th class="numeric">Date Updated</th>
+                                    <th class="numeric">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="splan in plans.cvpsans">
+                                    <td><a href="{{splan.plan_url}}" target="_blank">{{splan.planname}}</a><br /><small>( Views: {{splan.pageviews}} / Clicks: {{splan.lead}} )</small></td>
+                                    <td>${{splan.price}}/mo</td>
+                                    <td>{{splan.space| hddspace}}</td>
+                                    <td>{{splan.transfer| bandwidth}}</td>
+                                    <td>{{splan.plan_status| planstatus}}</td>
+                                    <td>{{splan.date_modified| badDateToISO | date:'MMM  yyyy'}}</td>
+                                    <td><md-icon  data-ng-click="editplan(splan.planid, splan.type)"  md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon> <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg" data-ng-click="deleteplan($event, splan.planid, splan.type)"></md-icon> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!plans.cvpsans" class="text-center">
+                            No Cloud VPS plan found! <a href="javascript:void(0);" ng-click="addcloudvpsplan();">Click here to add a new Cloud VPS Plan</a>
+                        </div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+        <br />
+
+</section>

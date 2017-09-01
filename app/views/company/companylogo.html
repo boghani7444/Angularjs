@@ -1,0 +1,112 @@
+<section class="page-padding"  data-ng-controller="companylogoCtrl as main">
+    <div class="divider"></div>
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>COMPANY LOGO</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content>
+                <md-content>
+                    <div class="md-content__body">
+                        <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                        <h3>Upload the logo image with 2:1 resolution ration to get the best result.</h3>
+                        <div layout="row">
+                            <h3>CHOOSE AN IMAGE</h3>
+                            <!--<input type="file" simple-change="fileChanged($event)" accept="image/*">-->
+                            <input type="file" onchange="angular.element(this).scope().onFile(this.files[0])" accept="image/*" id="imglogo">
+                            
+                        </div>
+                        <div layout="row"> 
+                            <div flex="100" ng-if="dataUrl">
+                                <div flex="70" >
+                                    <h3 >Then, crop it (Drag to move and wheel over the image to zoom in or zoom out)</h3>
+                                    <!--<canvas class="cropper" width="320" height="126" tw-cropper="cropper" source="file"></canvas>-->
+                                    <div ng-if="dataUrl" class="img-container" style='width:800px;'>
+                                        <img ng-if="dataUrl" ng-src="{{dataUrl}}" width="800"
+                                             ng-cropper
+                                             ng-cropper-proxy="cropperProxy"
+                                             ng-cropper-show="showEvent"
+                                             ng-cropper-hide="hideEvent"
+                                             ng-cropper-options="options"
+                                             >
+                                    </div>
+                                </div>
+                                <div flex="20" ng-if="preview.dataUrl">
+                                    <h3>Result:</h3>
+                                    <div class="preview-container">
+                                        <img ng-if="preview.dataUrl" ng-src="{{preview.dataUrl}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>When you're done <md-button class="btn-width-medium md-raised md-primary" ng-click="preview();" data-ng-disabled="!dataUrl" >Crop</md-button> <md-button class="btn-width-medium md-raised md-primary" ng-click="handle(preview.dataUrl,odataUrl)" data-ng-disabled="!preview.dataUrl">Save</md-button> <md-button class="btn-width-medium md-raised md-primary" ng-click="cancel()" >Cancel</md-button> </h3>
+                        </div>
+                        <!--<div ng-show="crop">
+                            <h3>Result:</h3>
+                            <img ng-src="{{crop}}">
+                        </div>-->
+                        <!--
+                        <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                          
+                          <div layout="row"> 
+                              <div flex="100">Select an image file: <input type="file" id="fileInput" /></div>
+                              <div flex></div>
+                          </div>    
+                            <div class="clear">&nbsp;</div>  
+                            <div layout="row"> 
+              <div class="cropArea" flex="30">
+                <img-crop image="myImage" result-image="myCroppedImage"
+                         area-type="rectangle"
+                          change-on-fly="true"              
+                        area-resize="false"
+                        result-width="320"
+                        result-height="126"
+                        
+                        result-x="myCroppedImageX"
+                        result-y="myCroppedImageY"
+                         
+                        original-width="myOriginalW"
+                        original-height="myOriginalH"
+                        
+                        original-crop-x="myOriginalX"
+                        original-crop-y="myOriginalY"
+                        
+                        original-crop-width="myCroppedOriginalW"
+                        original-crop-height="myCroppedOriginalH"
+                        
+                        area-min-size="[{w:160,h:63}]"
+                        area-init-size="[{w:160,h:63}]"
+                        
+                        maximize-crop="true"
+                        result-image-size='[{w:160,h:63}]' result-array-image='myArray'
+                         
+                         
+                          ></img-crop>
+              </div>
+                                <div flex="20" class="text-center">Cropped Image:</div>
+              <div><img ng-src="{{myCroppedImage}}" /></div>
+                          </div>
+                            
+                          
+                          
+                          
+                            <md-button data-ng-click="uploadImage()" class="btn-width-medium md-raised md-primary">Upload</md-button>
+                          
+                          
+            
+                       
+                        </form>
+                        -->
+                    </div>
+                </md-content>
+            </md-dialog-content>  
+        </div>
+    </div>
+</section>    

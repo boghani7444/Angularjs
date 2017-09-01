@@ -1,0 +1,76 @@
+<md-dialog aria-label="Reply this quote">
+  <form>
+    <md-toolbar class="md-accent md-theme-default md-whiteframe-z1">
+      <div class="md-toolbar-tools">
+        <h3>Reply this quote: {{(quotetitle)?quotetitle:quoteid}}</h3>
+		<span flex></span>
+        <md-button class="md-icon-button" ng-click="answer('not applicable')">
+          <md-icon md-svg-src="dist/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+          <md-content>
+        <div class="md-content__body" style="padding:20px;">
+            <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <div class="form-group">
+                    <div layout="row">
+						<div flex="70">
+							<md-input-container style="width:90%"> 
+							<label>Suggested Plan<sup style="color:red">*</sup> <small>(required)</small></label>
+								<md-select placeholder="Suggested Plan" aria-label="Suggested Plan" data-ng-model="row.suggestedplan" id="suggestedplan">
+								<md-optgroup label="Shared Plans">
+									<md-option data-ng-repeat="sharedplan in sharedplans" value="S-{{sharedplan.id}}">{{sharedplan.name}} (${{sharedplan.price}}/month)</md-option>
+								</md-optgroup>
+								<md-optgroup label="Cloud Shared Plans">
+									<md-option data-ng-repeat="cloudsharedplan in cloudsharedplans" value="CS-{{cloudsharedplan.id}}">{{cloudsharedplan.name}} (${{cloudsharedplan.price}}/month)</md-option>
+								</md-optgroup>
+								<md-optgroup label="Dedicated Plans">
+									<md-option data-ng-repeat="dedicatedplan in dedicatedplans" value="D-{{dedicatedplan.id}}">{{dedicatedplan.name}} (${{dedicatedplan.price}}/month)</md-option>
+								</md-optgroup>
+								<md-optgroup label="VPS Plans">
+									<md-option data-ng-repeat="vpsplan in vpsplans" value="V-{{vpsplan.id}}">{{vpsplan.name}} (${{vpsplan.price}}/month)</md-option>
+								</md-optgroup>
+								<md-optgroup label="Cloud VPS Plans">
+									<md-option data-ng-repeat="row in cloudvpsplans" value="CV-{{cloudvpsplan.id}}">{{cloudvpsplan.name}} (${{cloudvpsplan.price}}/month)</md-option>
+								</md-optgroup>
+								</md-select>
+							</md-input-container>
+						</div>
+						<div flex="30">
+							<md-input-container md-has-icons >
+							<md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+								<label>Monthly Price (USD)<sup style="color:red">*</sup></label>
+									<input 	type="number"
+											class="form-control"
+											data-ng-trim='false'
+											data-ng-model="row.quotation_price"
+											>
+							</md-input-container>
+						</div>
+					</div>
+                    </div>
+                   <div class="form-group">
+				   <input type="hidden" class="form-control" data-ng-model="row.toemail">
+                      <md-input-container>
+                        <label>Message<sup style="color:red">*</sup> <small>(required)</small></label>                  
+                        <textarea rows="5" cols="100" data-ng-model="row.quotereply"></textarea>
+                      </md-input-container>
+                    </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input type="hidden" data-ng-model="row.btnQuote">
+                    <input type="hidden" data-ng-model="row.hosting">
+                    <input type="hidden" data-ng-model="row.quote_id">
+                     <md-button ng-click="submitReply()" class="md-raised md-primary">
+        Reply
+      </md-button>
+                </div>
+            </div>
+              </div>
+          </md-content>
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+    </div>
+  </form>
+</md-dialog>

@@ -1,0 +1,50 @@
+<section class="page-padding"  data-ng-controller="contactCtrl">
+
+    <div class="divider"></div>
+
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3 style="text-transform:capitalize;">Contact Support (Help Desk)</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+            <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+            <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+              
+              <div layout="row"  > 
+                  <div flex="60">
+                      <label>Administrator : How may I help you ?</label>
+                        <md-radio-group layout-align="center center"  flex="100"  ng-model="user.quesType" required>                            
+                            <md-radio-button class="md-primary" id="seal_img_1" value="technical issue">a technical issue</md-radio-button><md-radio-button class="md-primary" id="seal_img_2" value="better idea">having a better idea</md-radio-button> 
+                        </md-radio-group>
+                      
+                  </div>                  
+              </div>
+                
+                
+                <div layout="row">
+                    <div flex="100">
+                        <p>Write here<sup style="color:red">*</sup></p>
+                                                <trix-editor angular-trix ng-model="user.txtQuery" ng-required="true"></trix-editor>
+                  </div>
+                </div>
+              <br /><br />
+              <input type="hidden" ng-model="user.submit" value="send">
+                 
+                <md-button data-ng-click="submitForm()" class="btn-width-medium md-raised md-primary" data-ng-disabled="canSubmit()" title="Submit button will be active when all fields are valid.">Submit</md-button>
+              
+
+            </form>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</section>    

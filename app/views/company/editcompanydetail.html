@@ -1,0 +1,342 @@
+<section class="page-padding"  data-ng-controller="editcompanydetailCtrl">
+    <div class="divider"></div>
+
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>MY COMPANY</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " aria-label="View Source">
+                        <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <form name="form_constraints" class="form-validation" novalidate>
+                        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+                            <md-tab label="My Company">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+                                        <div flex="70">
+                                            <md-input-container>
+                                                <label>Company Name <sup style="color:red">*</sup><small> (eq. TheWebHostingDir)</small></label>
+                                                <input type="text" class="form-control" required data-ng-model="comdetail.cname" size="80" ng-maxlength="30" ng-pattern="/^[a-zA-Z0-9-. ]*$/" >
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="30" layout-align="center center" ng-controller="profileimgCtrl">
+                                            <div layout="row">
+                                                <div flex="100" class="text-center">
+                                                    <img width="200" id="profileimg" alt="company-logo" ng-href="{{profileimg}}" ng-src="{{profileimg}}" /><br>
+                                                    <a href="#/company/picture"  flex="5" style="font-weight:bold;color:#0D6CC0">Edit Logo</a>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div layout="row">   
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label>URL</label>
+                                                <input type="text" class="form-control" size="80" name="url" data-ng-trim='false' data-ng-model="comdetail.url" readonly />
+                                            </md-input-container>
+                                        </div>
+
+                                    </div>
+                                    <div layout="row">   
+                                        <div flex="30">
+                                            <md-input-container>
+                                                <label>Year of Establishment</label>
+                                                <md-select ng-model="comdetail.since_year"  id="since_year">
+                                                    <md-option data-ng-repeat="year in years" value="{{year}}">{{year}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <!--<div flex="20">
+                                                <md-input-container>
+                                                        <label>Verification Status</label>
+                                                        <input type="text" class="form-control" size="15" name="url" data-ng-trim='false' value="{{comdetail.since_year_status | ystatfilter}}" readonly />
+                                                </md-input-container>
+                                        </div>
+                                        <div flex="55" style="padding-left:20px;">
+                                                <div ng-hide="isVerified(comdetail.since_year_status)"  ><br /> <a href="/userapp/#/contactsupport" style="font-weight:bold;color:#0D6CC0">Contact US to Get Verified </a></div>
+                                        </div>-->
+                                    </div>	
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">{{comdetail.cname}} Brief Summary <sup style="color:red">*</sup></label>
+                                            <trix-editor angular-trix ng-model="comdetail.summary" ng-required="true"></trix-editor>
+                                        </div> 
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">{{comdetail.cname}} Features</label>
+                                            <trix-editor angular-trix ng-model="comdetail.brief" ></trix-editor>
+                                        </div> 
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Datacenter Information">	
+                                <md-content class="md-padding">					
+                                    <div data-ng-repeat="item in [0, 1, 2]">
+                                        <div layout="row">
+                                            <div flex="100">
+                                                <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);" >Data Center Location {{item + 1}}</label><br /><br />
+                                            </div>
+                                        </div>
+                                        <div layout="row" >
+                                            <div flex="100" >
+                                                <div layout="row">
+                                                    <div flex="30">
+                                                        <md-input-container>
+                                                            <label>Country</label>
+                                                            <md-select placeholder="Country" aria-label="Country"  								data-ng-change="selectChanged(comdetail.arrDataLoc[item].id_country, item + 1)"
+                                                                       ng-model="comdetail.arrDataLoc[item].id_country">
+                                                                <md-option data-ng-repeat="row in country" value="{{row.id}}">{{row.country_name}}</md-option>
+                                                                <md-option value=""></md-option>
+                                                            </md-select>
+                                                        </md-input-container>
+                                                    </div>
+                                                    <div flex="30">
+                                                        <md-input-container>
+                                                            <label>State <sup style="color:red">*</sup><small>(Required if country is selected)</small></label>
+                                                            <md-select placeholder="State" aria-label="Country"  ng-model="comdetail.arrDataLoc[item].id_state"
+                                                                       ng-required='comdetail.arrDataLoc[item].id_country'
+                                                                       ng-disabled='!comdetail.arrDataLoc[item].id_country'
+                                                                       id="state_{{item}}"
+                                                                       >
+                                                                <md-option data-ng-repeat="row in dstates[item + 1]" value="{{row.id}}">{{row.name}}</md-option>
+                                                                <md-option value=""></md-option>
+                                                            </md-select>
+                                                        </md-input-container> 
+                                                    </div>
+                                                    <div flex="30">
+                                                        <md-input-container>
+                                                            <label>City <sup style="color:red">*</sup> <small>(Required if country is selected)</small></label>	
+                                                            <input class="form-control" type="text"
+                                                                   class="form-control"
+                                                                   id="city_{{item}}"
+                                                                   size="30" 
+                                                                   ng-required='comdetail.arrDataLoc[item].id_state'
+                                                                   data-ng-model="comdetail.arrDataLoc[item].datacenter_location"
+                                                                   ng-disabled='!comdetail.arrDataLoc[item].id_state'
+                                                                   >
+                                                        </md-input-container>
+                                                    </div>
+                                                </div> 
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">{{comdetail.cname}} Datacenter Information</label>
+                                            <trix-editor angular-trix ng-model="comdetail.datacenter"></trix-editor>
+                                        </div> 
+                                    </div>
+                                </md-content>
+                            </md-tab> 
+                            <md-tab label="Support">	
+                                <md-content class="md-padding">					
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Your Help Desk URL <sup style="color:red">*</sup></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="help"
+                                                       ng-required="true"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.help"
+                                                       >
+                                            </md-input-container> 
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Knowledge Base Support URL <sup style="color:red">*</sup></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="cemail"
+                                                       ng-required="true"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.knowledge_base"                           
+                                                       >
+                                            </md-input-container> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Support Email Address <sup style="color:red">*</sup></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="cemail"
+                                                       ng-required="true"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.cemail"                           
+                                                       >
+                                            </md-input-container> 
+                                        </div>
+                                        
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Support Phone No.</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="helpdesk"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.phone">
+                                            </md-input-container> 
+
+                                        </div>
+                                        
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Do You Offer Live Chat <small>(optional)</small></label>
+                                                <md-select ng-model="comdetail.live_chat">
+                                                    <md-option value="yes">Yes</md-option>
+                                                    <md-option value="no">No</md-option>
+                                                </md-select>
+                                            </md-input-container>
+
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Live support (Hours) <small>(optional)</small></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="live_support"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.live_support">
+                                            </md-input-container> 
+
+                                        </div>
+<!--                                        <div flex="50">
+                                            <md-input-container md-has-icons>
+                                                <md-icon md-svg-src="dist/img/icons/ic_settings_backup_restore_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                <label>Do You Offer Money Back Guarantee <small>(optional)</small></label>
+                                                <md-select aria-label="Select" ng-model="comdetail.money_back_guarantee">
+                                                    <md-option value="7">Yes - 7 Days</md-option>
+                                                    <md-option value="14">Yes - 14 Days</md-option>
+                                                    <md-option value="30">Yes - 30 Days</md-option>
+                                                    <md-option value="45">Yes - 45 Days</md-option>
+                                                    <md-option value="60">Yes - 60 Days</md-option>
+                                                    <md-option value="90">Yes - 90 Days</md-option>
+                                                    <md-option value="-1">No</md-option>
+                                                    <md-option value="-2">Not Specified</md-option>
+                                                </md-select>
+                                            </md-input-container>
+
+                                        </div>-->
+                                    </div>
+                                </md-content>  
+                            </md-tab>
+                            <md-tab label="Payment Methods">
+                                <md-content class="md-padding">					
+                                    <div layout="row">
+                                        <div flex="100">
+                                            <md-input-container>
+                                                <label style="color: rgba(0, 0, 0, 0.54);transform: translate3d(0px, 6px, 0px) scale(0.95);">Accepted Payment Methods<sup style="color:red">*</sup></label>
+                                                <md-checkbox data-ng-repeat='payment_method in allpayment_methods' class="md-primary" ng-required="true"
+                                                             value="{{payment_method}}"  ng-checked="comdetail.payment_methods.indexOf(payment_method) > -1" aria-label="Accepted Payment Methods"
+                                                             ng-click="togglepaySelection(payment_method)"
+                                                             >
+                                                    {{payment_method}} 
+                                                </md-checkbox>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Address">	
+                                <md-content class="md-padding">					
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Your Address <sup style="color:red">*</sup></label>
+                                                <textarea rows="3" cols="50" name="caddress" data-ng-model="comdetail.caddress" ng-required="true"></textarea>
+                                            </md-input-container> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>City <sup style="color:red">*</sup></label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       ng-required="true"
+                                                       name="ccity"
+                                                       data-ng-model="comdetail.ccity">
+                                            </md-input-container> 
+                                        </div>
+                                        
+                                        <div flex="25">
+                                            <md-input-container>
+                                                <label>Country <sup style="color:red">*</sup></label>
+                                                <md-select data-ng-change="selectChanged(comdetail.ccountry, 0)" placeholder="Country" aria-label="Country"  ng-model="comdetail.ccountry" ng-required="true" id="ccountry">
+                                                    <md-option data-ng-repeat="row in country" value="{{row.id}}">{{row.country_name}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div flex="25">
+                                            <md-input-container>
+                                                <label>State <sup style="color:red">*</sup></label>
+                                                <md-select placeholder="State" aria-label="State"  ng-model="comdetail.state" id="state" ng-required="true">
+                                                    <md-option data-ng-repeat="row in states" value="{{row.id}}">{{row.name}}</md-option>
+                                                </md-select>
+                                            </md-input-container> 
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Facebook URL </label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="helpdesk"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.facebook">
+                                            </md-input-container> 
+                                        </div>
+                                        <div flex="50">
+                                            <md-input-container>
+                                                <label>Twitter URL </label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       size="50" 
+                                                       name="helpdesk"
+                                                       data-ng-trim='false'
+                                                       data-ng-model="comdetail.twitter">
+                                            </md-input-container> 
+
+                                        </div>
+                                    </div>
+                                </md-content>  
+                            </md-tab>
+                        </md-tabs>
+                        <div layout="row"  >
+                            <div flex="100" style="text-align:center">
+                                <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                                <br />
+                                <input type="hidden" ng-model="comdetail.action" >
+                                <md-button class="btn-width-medium md-raised md-primary" ng-click="submitForm()"  data-ng-disabled="canSubmit()" >Submit</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</section>    

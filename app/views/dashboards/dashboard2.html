@@ -1,0 +1,373 @@
+<section class="page-padding row">
+
+  <div class="col-md-6">
+
+    <div class="md-whiteframe-z1">
+      <div class="md-content__body">
+        <form layout="row" layout-wrap>
+          <textarea flex="100" class="form-control no-border" rows="3" placeholder="Write something..."></textarea>
+          <span flex="100"><br/></span>
+          <md-button aria-label="Button" class="md-primary md-raised">Send</md-button>
+          <span flex></span>
+          <md-button class="md-icon-button md-icon-button--small" aria-label="More">
+            <md-icon class="md-accent" md-svg-src="dist/img/icons/ic_camera_24px.svg"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button md-icon-button--small" aria-label="More">
+            <md-icon class="md-accent" md-svg-src="dist/img/icons/ic_mic_24px.svg"></md-icon>
+          </md-button>
+        </form>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div layout="row">
+
+      <div flex="100">
+        <md-card class="md-user-card">
+          <div class="md-card-header">
+            <img src="dist/images/background/social1.png" alt="Washed Out">
+
+            <h3 class="card-user-name">
+              Tifany Smith
+            </h3>
+          </div>
+          <md-card-content>
+            <div ng-controller="HomeFabCtrl" layout="column">
+              <div class="lock-size user-speed-dial" layout="row" layout-align="center center">
+                <md-fab-speed-dial md-open="demo.isOpen" md-direction="{{demo.selectedDirection}}"
+                                   ng-class="demo.selectedMode">
+                  <md-fab-trigger>
+                    <md-button aria-label="menu" class="md-fab md-accent">
+                      <md-icon md-svg-src="dist/img/icons/ic_menu_24px.svg"></md-icon>
+                    </md-button>
+                  </md-fab-trigger>
+                  <md-fab-actions>
+                    <md-button aria-label="Airplane" class="md-fab md-raised md-mini md-primary">
+                      <md-icon md-svg-src="dist/img/icons/ic_airplanemode_off_24px.svg"></md-icon>
+                    </md-button>
+                    <md-button aria-label="Bluetooth" class="md-fab md-raised md-mini md-warn">
+                      <md-icon md-svg-src="dist/img/icons/ic_bluetooth_24px.svg"></md-icon>
+                    </md-button>
+                    <md-button aria-label="Google Inbox" class="md-fab md-raised md-mini md-primary">
+                      <md-icon md-svg-src="dist/img/icons/ic_inbox_24px.svg"></md-icon>
+                    </md-button>
+                  </md-fab-actions>
+                </md-fab-speed-dial>
+              </div>
+            </div>
+            <div flex="100" class="md-card-buttons__list">
+              <ul class="text-center">
+                <li>
+                  <md-icon class="md-primary" md-svg-src="dist/img/icons/ic_inbox_24px.svg"></md-icon>
+                  <p class="text-muted">My Inbox</p>
+                </li>
+                <li>
+                  <md-icon class="md-warning" md-svg-src="dist/img/icons/ic_add_alarm_24px.svg"></md-icon>
+                  <p class="text-muted">Alarms</p>
+                </li>
+                <li>
+                  <md-icon class="md-danger" md-svg-src="dist/img/icons/ic_battery_charging_20_24px.svg"></md-icon>
+                  <p class="text-muted">Battery</p>
+                </li>
+                <li>
+                  <md-icon class="md-info" md-svg-src="dist/img/icons/ic_data_usage_24px.svg"></md-icon>
+                  <p class="text-muted">My quota</p>
+                </li>
+              </ul>
+            </div>
+            <div flex>
+              <md-button aria-label="Button" class="md-accent md-raised theme-default">
+                <md-icon class="md-accent" md-svg-src="dist/img/icons/ic_inbox_24px.svg"></md-icon>
+                Send a message
+              </md-button>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="md-whiteframe-z1">
+      <div layout-gt-md="row">
+        <md-toolbar flex="100" flex-gt-md="50" class="md-toolbar-content md-accent">
+          <h3>
+            <span>Popular data</span>
+          </h3>
+          <p class="text--small">
+            Important notices you might want to know
+          </p>
+          <br/>
+          <div class="box-updates">
+            <div class="box-updates__item--no-border" layout="row">
+              <div flex="70">
+                <p>
+                  #Trendingstory
+                </p>
+              </div>
+              <div flex="30" class="text-right">
+                <p>
+                  <md-icon class="color--white" md-svg-src="dist/img/icons/ic_trending_up_24px.svg"></md-icon>
+                </p>
+              </div>
+            </div>
+            <div class="box-updates__item--no-border" layout="row">
+              <div flex="70">
+                <p>
+                  #downtotheriver
+                </p>
+              </div>
+              <div flex="30" class="text-right">
+                <p>
+                  <md-icon class="color--white" md-svg-src="dist/img/icons/ic_trending_down_24px.svg"></md-icon>
+                </p>
+              </div>
+            </div>
+          </div>
+        </md-toolbar>
+        <md-toolbar flex="100" flex-gt-md="50" class="md-toolbar-content md-primary">
+          <h3>
+            <span>Latest social trends</span>
+          </h3>
+          <p class="text--small">
+            Important social media updates
+          </p>
+          <br/>
+          <div class="box-updates">
+            <div class="box-updates__item" layout="row">
+              <div flex="70">
+                <p>
+                  #Trendingstory
+                </p>
+              </div>
+              <div flex="30" class="text-right">
+                <p>
+                  <md-icon class="color--white" md-svg-src="dist/img/icons/ic_trending_up_24px.svg"></md-icon>
+                </p>
+              </div>
+            </div>
+            <div class="box-updates__item" layout="row">
+              <div flex="70">
+                <p>
+                  #Movieoftheweek
+                </p>
+              </div>
+              <div flex="30" class="text-right">
+                <p>
+                  <md-icon class="color--white" md-svg-src="dist/img/icons/ic_mic_off_24px.svg"></md-icon>
+                </p>
+              </div>
+            </div>
+          </div>
+        </md-toolbar>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div layout="row">
+      <div flex="100" flex-gt-md="50">
+        <div layout-margin>
+          <md-card>
+            <img src="dist/images/background/social2.png" alt="Washed Out">
+            <md-card-content>
+              <md-button class="md-fab middle-right md-primary" aria-label="Eat cake">
+                <md-icon md-svg-src="dist/img/icons/ic_network_wifi_48px.svg"></md-icon>
+              </md-button>
+              <p>
+                The titles of Washed Out's breakthrough song and the first single
+              </p>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
+
+      <div flex="100" flex-gt-md="50">
+        <div layout-margin>
+          <md-card>
+          <img src="dist/images/background/social3.png" alt="Washed Out">
+          <md-card-content>
+            <md-button class="md-fab middle-right md-accent" aria-label="Eat cake">
+              <md-icon md-svg-src="dist/img/icons/ic_message_48px.svg"></md-icon>
+            </md-button>
+            <p>
+              The titles of Washed Out's breakthrough song and the first single
+            </p>
+          </md-card-content>
+        </md-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div layout="row">
+
+      <div flex="100" data-ng-controller="AudioJsCtrl">
+        <md-card class="card-primary card-music">
+          <img src="dist/images/background/bg_music3.png" alt="Washed Out">
+          <md-card-content>
+            <h3>Live Music</h3>
+            <p>
+              The titles of Washed Out's breakthrough song and the first single
+            </p>
+
+            <div class="audiojs">
+              <audio src="dist/mp3/pop.mp3" preload="auto"></audio>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="md-whiteframe-z1">
+      <div class="md-content__body">
+        <h3>
+          <span>Latest friend activity</span>
+        </h3>
+        <div>
+          <ul class="list-inline">
+            <li>
+              <img src="dist/images/team1.jpg" class="img30_30 img-rounded">
+            </li>
+            <li>
+              <img src="dist/images/team2.jpg" class="img30_30 img-rounded">
+            </li>
+            <li>
+              <img src="dist/images/team3.jpg" class="img30_30 img-rounded">
+            </li>
+            <li>
+              <img src="dist/images/team4.jpg" class="img30_30 img-rounded">
+            </li>
+            <li>
+              <img src="dist/images/team5.jpg" class="img30_30 img-rounded">
+            </li>
+          </ul>
+        </div>
+        <div data-ng-controller="sparklineCtrl">
+                      <span data-sparkline
+                            data-spark-data="simpleChart2Long.sparkData"
+                            data-spark-options="simpleChart2Long.sparkOptions"
+                              ></span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="md-whiteframe-z1">
+      <div class="md-content__body">
+        <h4>
+          Activity stream
+        </h4>
+        <p>
+          Latest activity
+        </p>
+
+        <div class="timeline-body">
+          <div class="timeline m-border">
+            <div class="timeline-item">
+              <div class="item--content">
+                <div class="text--muted">Just now</div>
+                <p>Finished task #features 4.</p>
+              </div>
+            </div>
+            <div class="timeline-item border-info">
+              <div class="item--content">
+                <div class="text--muted">11:30</div>
+                <p>@Jessi retwit your post</p>
+              </div>
+            </div>
+            <div class="timeline-item border-warning border-l">
+              <div class="item--content">
+                <div class="text--muted">10:30</div>
+                <p>Call to customer #Jacob and discuss the detail.</p>
+              </div>
+            </div>
+            <div class="timeline-item border-warning">
+              <div class="item--content">
+                <div class="text--muted">3 days ago</div>
+                <p>Jessi commented your post.</p>
+              </div>
+            </div>
+            <div class="timeline-item border-danger">
+              <div class="item--content">
+                <div class="text--muted">Thu, 10 Mar</div>
+                <p>Trip to the moon</p>
+              </div>
+            </div>
+            <div class="timeline-item border-info">
+              <div class="item--content">
+                <div class="text--muted">Sat, 5 Mar</div>
+                <p>Prepare for presentation</p>
+              </div>
+            </div>
+            <div class="timeline-item border-danger">
+              <div class="item--content">
+                <div class="text--muted">Sun, 11 Feb</div>
+                <p>Jessi assign you a task #Mockup Design.</p>
+              </div>
+            </div>
+            <div class="timeline-item border-info">
+              <div class="item--content">
+                <div class="text--muted">Thu, 17 Jan</div>
+                <p>Follow up to close deal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-toolbar-content md-accent">
+        <h3>
+          <span>Popular data</span>
+        </h3>
+        <br/>
+        <div data-ng-controller="chartingCtrl">
+          <div data-ng-controller="sparklineCtrl">
+                      <span data-sparkline
+                            data-spark-data="simpleChartNoFill.sparkData"
+                            data-spark-options="simpleChartNoFill.sparkOptions"
+                              ></span>
+          </div>
+        </div>
+        <p class="text--small">
+          Important notices you might want to know
+        </p>
+      </md-toolbar>
+    </div>
+
+  </div>
+
+  <div class="col-md-2" hide-sm>
+    <div class="chat-window" data-ng-controller="ChatWindowCtrl as chatwindow">
+
+      <div class="friends-list">
+        <div ng-repeat="friend_it in chatwindow.friends_list">
+          <friend-item userName="{{friend_it.chat_friend_name}}" userLocation="{{friend_it.chat_friend_location}}" userImage="{{friend_it.chat_friend_image}}" userOnline="{{friend_it.chat_online}}"></friend-item>
+        </div>
+      </div>
+
+      <md-sidenav class="md-sidenav-right md-whiteframe-z2 md-theme chat_talk_nav" md-component-id="chatwindow">
+        <div data-ng-include=" 'app/components/chat/chat.html' "></div>
+      </md-sidenav>
+
+    </div>
+  </div>
+
+</section>
+
+<br/>

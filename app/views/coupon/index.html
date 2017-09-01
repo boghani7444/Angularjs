@@ -1,0 +1,62 @@
+<section class="page-padding"  data-ng-controller="couponCtrl">
+
+    <div class="divider"></div>
+
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3>Your Company Coupon Code</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+          <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+          <section class="table-flip-scroll">
+              
+            <table class="table table-bordered table-striped cf" ng-if="coupons">
+              <thead class="cf">
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Coupon Code</th>                
+                <th class="numeric">Date Posted</th>                
+                <th class="numeric">Actions</th>
+                
+              </tr>
+              </thead>
+              <tbody>
+          <tr data-ng-repeat="(key,coupon) in coupons">
+            <td>{{coupon.couponid}}</td>
+            <td>{{coupon.title | htmlToPlaintext | limitTo:55}}</td>
+            <td>{{coupon.coupon_code}}</td>             
+            <td>{{coupon.date_create | badDateToISO | date:"dd/MM/yy h:mma" }}</td>            
+            <td><md-button class="btn-width-medium md-accent" data-ng-click="editplan(coupon.couponid)">                    
+                    <md-icon  data-id="{{coupon.couponid}}" md-svg-src="dist/img/icons/ic_mode_edit_24px.svg"></md-icon>
+                        Edit
+                </md-button>              
+                <md-button class="btn-width-medium md-accent" data-ng-click="deleteplan($event,coupon.couponid)">
+                        <md-icon md-svg-src="dist/img/icons/ic_delete_24px.svg"></md-icon>
+                        Delete
+                </md-button>
+            </td>
+          </tr>
+             
+              
+              </tbody>
+            </table>
+              <div ng-if="!coupons" class="text-center">
+                            No coupon code found! <a href="#/coupon/addcoupon" >Click here to add a new coupon code</a>
+                        </div>
+          </section>
+        </div>
+      </md-content>
+    </div>
+  </div>
+
+</section>

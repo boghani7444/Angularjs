@@ -1,0 +1,244 @@
+<section class="page-padding"  data-ng-controller="ratingsCtrl">
+    <div class='md-whiteframe-z1'>
+    
+        <md-toolbar class="md-accent md-theme-default md-whiteframe-z1">
+          <div class="md-toolbar-tools">
+              <h3 class="col-md-3 nopadding">Ratings</h3>            
+          </div>
+        </md-toolbar>
+    
+    <md-content>   
+        <div class="md-content__body">
+    <div class="row" >
+        <div class="col-md-12">
+            There are total <code>{{ ratings.total_reviews }}</code> reviews. ( Enabled Reviews : <code>{{ratings.enabled_reviews}}</code>    Disabled Reviews : <code>{{ratings.disabled_reviews}}</code>    Pending Reviews : <code>{{ratings.pending_reviews}}</code> )
+            <br><br>
+        </div>    
+    </div>   
+    
+    
+    
+
+    <div class="row text-center">
+        <div class="col-md-12 text-center"  >
+            <span class="bold">TOTAL RATING SCORE</span>
+            <div style="font-size:20pt;font-weight:bold;color:#6699CC;padding-top:10px;padding-left:30px;padding-bottom:10px;">{{ratings.percentage * ratings.score_rate}} | round %</div>
+            <div>( {{ ratings.recommended_count}} / {{ratings.enabled_reviews}} users recommends {{ratings.UserComName}} )</div>
+        </div>
+    </div>        
+        <div align="center" class="bold">DETAILED USER RATINGS</div>
+        <div class="row light_blue">
+            <div class="col-md-8 bold">Reliability</div>
+            <div class="col-md-4 bold ">SubScore : {{ratings.reliability_per*ratings.score_rate|round}}%</div>
+            
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Excellent - A highly reliable service offering 99.9% uptime guarantee.</div>
+            <div class="col-md-4 lnht"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.reliability5)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.reliability5}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Good - Minor downtime, but overall my site loads faster and provides more redundancy.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.reliability4)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.reliability4}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Okay - Average load times and fewer service interruptions.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.reliability3)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.reliability3}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Could be better - More problems with uptime, needs improvement.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.reliability2)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.reliability2}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Poor - Occurring site downtime problems very frequently and site speed is extremely slow.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.reliability1)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.reliability1}}%</span></div>
+            
+        </div>
+        <div class="clear">&nbsp;</div>
+      <div class="row light_blue">
+            <div class="col-md-8 bold">Technical Support</div>
+            <div class="col-md-4 bold ">SubScore : {{ratings.tsupport_per*ratings.score_rate|round}}%</div>
+            
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Excellent - Very responsive and helpful, always fixing problems easily.</div>
+            <div class="col-md-4 lnht"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.tsupport5)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.tsupport5}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Good - They help with any problems but sometimes it takes a while.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.tsupport4)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.tsupport4}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Okay - Responses are satisfactory - usually in timely manner.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.tsupport3)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.tsupport3}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Could be better - They sometimes help and sometimes unresponsive.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.tsupport2)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.tsupport2}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Poor - Very unresponsive.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.tsupport1)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.tsupport1}}%</span></div>
+            
+        </div>
+        
+        <div class="clear">&nbsp;</div>
+      <div class="row light_blue">
+            <div class="col-md-8 bold">Server Speed</div>
+            <div class="col-md-4 bold ">SubScore : {{ratings.sspeed_per*ratings.score_rate|round}}%</div>
+            
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Excellent - My site is always fast. I have never noticed any downtime.</div>
+            <div class="col-md-4 lnht"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.sspeed5)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.sspeed5}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Good - Sometimes speed has been slow, but for the majority of time been good.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.sspeed4)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.sspeed4}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Okay - My site loads with an average speed.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.sspeed3)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.sspeed3}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Could be better - Constant problems with site speed, needs improvement.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.sspeed2)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.sspeed2}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Poor - My site runs too slow.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.sspeed1)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.sspeed1}}%</span></div>
+            
+        </div> 
+        <div class="clear">&nbsp;</div>
+        <div class="row light_blue">
+            <div class="col-md-8 bold">Price</div>
+            <div class="col-md-4 bold ">SubScore : {{ratings.price_per*ratings.score_rate|round}}%</div>
+            
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Excellent - Great value for your money - prices are incredibly low and offering unlimited resources.</div>
+            <div class="col-md-4 lnht"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.price5)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.price5}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Good - Price is reasonable. Good value for your money.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.price4)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.price4}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Okay - Fair prices. Worth value for your money.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.price3)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.price3}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Could be better - Should be less expensive.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.price2)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.price2}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Poor - Very much expensive deals.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.price1)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.price1}}%</span></div>
+            
+        </div> 
+        <div class="clear">&nbsp;</div>
+        <div class="row light_blue">
+            <div class="col-md-8 bold">Control Panel Interface</div>
+            <div class="col-md-4 bold ">SubScore : {{ratings.cpaneli_per*ratings.score_rate|round}}%</div>
+            
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Excellent - A very easy and user-friendly control panel with powerful tools, extensive help resources, and skilled customer care associates to administer your site quickly.</div>
+            <div class="col-md-4 lnht"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.cpaneli5)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.cpaneli5}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Good - A customized control panel to configure and control all aspects of your website.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.cpaneli4)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.cpaneli4}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Okay - A little confusing in the beginning, but easy once you figure it out.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.cpaneli3)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.cpaneli3}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Could be better - Less user-friendly control panel.The host needs to improve in this area.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.cpaneli2)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.cpaneli2}}%</span></div>
+            
+        </div>
+        <div class="row light_gray">
+            <div class="col-md-8">Poor - It is quite hard to use. I really don't like it.</div>
+            <div class="col-md-4"><span class="percent_bar1 fl">
+                        <span ng-style='{"width":(review.cpaneli1)+"%"}' class="fl"></span>
+                    </span><span class="fl">{{review.cpaneli1}}%</span></div>
+            
+        </div> 
+  </div>
+<md-content>
+    
+    </div>
+</section>

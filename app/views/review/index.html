@@ -1,0 +1,147 @@
+<section class="page-padding"  data-ng-controller="reviewsCtrl">
+     <div class="row" >
+        <div class="col-md-12 marginbottom">
+        <md-toolbar class="md-accent md-theme-default md-whiteframe-z1">
+          <div class="md-toolbar-tools">
+              <h3 class="col-md-3 nopadding">Reviews ({{subttl}})</h3>            
+          </div>
+        </md-toolbar>
+        </div>
+    </div> 
+    <div class="row" >
+	<aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+        <div class="col-md-12">
+            There are total <a href="javascript:void(0)" ng-click="showreviews('All')">{{ enabled_reviews + disabled_reviews + pending_reviews }}</a> reviews. ( Enabled Reviews : <a href="javascript:void(0)" ng-click="showreviews('E')">{{enabled_reviews}}</a>    Disabled Reviews : <a href="javascript:void(0)" ng-click="showreviews('D')">{{disabled_reviews}}</a>    Pending Reviews : <a href="javascript:void(0)" ng-click="showreviews('P')">{{pending_reviews}}</a> )
+            <br><br>
+        </div>    
+        <div class="col-md-12 marginbottom" ng-repeat="(key,item) in reviews" >
+
+      <div class="md-whiteframe-z1">
+          
+        <div class="md-content__body"> 
+            
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+						<div class="col-md-12">
+							<strong>Title:</strong> {{item.title}}
+						</div>
+						<div class="col-md-12">
+							<strong>Review by:</strong> {{item.user_name}}
+						</div>
+						<div class="col-md-12">
+							<strong>Email:</strong> {{item.user_email}}
+						</div>
+						<div class="col-md-12">
+							<strong>What do you like best about {{companyname}} (Comments):</strong><br /><p class="text-justify" ng-bind-html="item.comments"></p>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<strong>Reliability rating:</strong><br /><twh-rating-stars rating="item.reliability_rate" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+							<div class="col-md-6">
+								<strong>Server speed rating:</strong><br /> <twh-rating-stars rating="item.server_speed_rate" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<strong>Value for money:</strong><br /> <twh-rating-stars rating="item.price_rate" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+							<div class="col-md-6">
+								<strong>Customer support rating:</strong><br /><twh-rating-stars rating="item.technical_support_rate" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+						</div>
+						<div class="row">						
+							<div class="col-md-6">
+								<strong>Control panel rating:</strong><br /> <twh-rating-stars rating="item.cpanel_interface_rate" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+							<div class="col-md-6">
+								<strong>Overall rating:</strong><br /> <twh-rating-stars rating="item.overall_rating" max-rating="5" ></twh-rating-stars ><br /><br />
+							</div>
+						</div>	
+						<div class="col-md-12">
+							<strong>Would you recommend {{companyname}} to others?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{(item.user_recommendation == 1) ? 'Yes' : 'No'}}<br /><br />
+						</div>
+						<div class="col-md-12" >
+							<strong>How long have you hosted with {{companyname}}?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.howlong}} Year{{(item.howlong>1)?'s':''}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.product">
+							<strong>Which of the following product you used with?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.product}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.dislikeabout">
+							<strong>What do you dislike about {{companyname}}?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.dislikeabout}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.role">
+							<strong>What is your primary role when using this product?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.role}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.whatproblem">
+							<strong>What business problems are you solving? What benefits have you realized?</strong><br /> <md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.whatproblem}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.switchprovider">
+							<strong>Did your company switch to Accu Web Hosting from another Hosting provider?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.switchprovider}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.switchprovider == 'Yes'">
+							<strong>Please provide the name of the previous hosting provider.</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.switchedfrom}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.rightdirection">
+							<strong>Is Accu Web Hosting headed in the right direction?</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.rightdirection}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.rightdirection == 'No'">
+							<strong>Please provide your suggestion, if any.</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.suggession}}<br /><br />
+						</div>
+						<div class="col-md-12" ng-show="item.recommendmsg">
+							<strong>Recommendations to others to consider Accu Web Hosting.</strong><br /><md-icon class="md-primary ng-isolate-scope" md-svg-src="dist/img/icons/ic_trending_neutral_24px.svg" ></md-icon> {{item.recommendmsg}}<br /><br />
+						</div>
+						
+                    </div>
+					
+                    <div class="row">
+                        <div class="col-md-12">
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+					<div class="col-md-6" ng-if="item.domain!=''">
+                            <strong>Domain:</strong> <a target="_blank" href="http://{{item.domain}}">{{item.domain}}</a>
+                        </div>
+						<div class="col-md-6  text-right" ng-show="item.review_status != 'D'">
+						<a href="javascript:void(0);" ng-click="requestfordisable($event,item.id)" ng-hide="item.request_disable"><i>Request admin to disable this review</i></a>
+							<i ng-show="item.request_disable">Requested admin to disable this review.</i>
+						</div>
+						<div class="col-md-6" ng-hide="item.review_status != 'D'">
+						</div>
+                        
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="small-box-icon no-padding text-right">
+                        <span ng-if="item.user_recommendation==1" class="box-icon bg-success rightsuccess bold">
+                            RECOMMENDS
+                        </span>
+                        <span ng-if="item.user_recommendation!=1" class="box-icon bg-danger rightsuccess bold">
+                            DOES NOT RECOMMEND
+                        </span>
+
+                        <div class="box-info">
+                          <p class="h4"></p>
+
+                          <p class="text-muted text-right"><strong>Posted on:</strong> {{item.dated}} </p>
+						  <p class="text-muted text-right"><strong>Status:</strong> <span style="{{(item.review_status == 'E') ? 'color:green' : ''}} {{(item.review_status == 'D') ? 'color:red' : ''}}">{{item.review_status | reviewstatus}}</span></p> 
+                        </div>
+                    </div>
+                </div>    
+            </div>    
+            
+            
+        </div>
+      </div>
+
+    </div>
+      
+    
+      
+    
+  </div>
+    
+</section>

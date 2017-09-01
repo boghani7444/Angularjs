@@ -1,0 +1,65 @@
+<section class="page-widgets page-padding" data-ng-controller="quoteCtrl">
+    <div class="divider"></div>
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3>VPS Hosting Quotes</h3>
+                    <span class="flex"></span>
+                    <a href="#/quote/vpshostingquote">Show all VPS quotes <md-icon md-svg-icon="dist/img/icons/ic_arrow_forward_24px.svg"></md-icon></a>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <section class="table-responsive">
+                        <table class="table table-bordered table-striped cf" ng-if="quotes">
+                            <thead class="cf">
+                                <tr>
+                                    <th width="15%">Submitted by</th>
+                                    <th width="30%">Quote Title</th>
+                                    <th width="10%">Budget</th>
+                                    <th width="20%">Created</th>
+                                    <th width="20%">Updated</th>
+                                    <th width="5%">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="quote in quotes" >
+                                <tr style="background-color:{{($index % 2 ) == 0 ? '#FFFFFF' : '#f9f9f9' }};font-weight:{{quote.read == 0 ? 'bold' : 'normal' }}" >
+                                    <td><img class="header__user-picture"  ng-src="https://graph.facebook.com/v2.6/{{ quote.fbid }}/picture" ng-show="quote.fbid > 0"><img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/avatar/{{quote.user_id}}.jpg" ng-hide="quote.fbid > 0"> <small><b>{{quote.first_name}}</b></small></td>
+                                    <td><a href="#/quote/detail/vps/{{quote.id}}" title="View Details">{{(quote.title)?quote.title:'Quote '+quote.id}}</a></td>
+                                    <td>{{quote.price| currency : $}}/month</td>
+                                    <td>{{quote.date_create| badDateToISO | date:'dd/MM/yyyy h:mma' }}</td>
+                                    <td>{{quote.date_updated| badDateToISO | date:'dd/MM/yyyy h:mma'}}</td>
+                                    <td>{{quote.status| quotestatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="!quotes" class="text-center">You have not replied any VPS quote request as of now.</div>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="text-center row"  ng-show="quotes.length>10">
+        <nav>
+            <ul class="pagination" ng-show="pagination">
+                <li class="page-item {{previous.class}}">
+                    <a class="page-link" ng-href="{{previous.href}}"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" ng-class="{ 'active' : item == currentpage }" ng-repeat="(key,item) in pagination"><a class="page-link" href="#/quote/vpshostingquotereplied/{{item}}">{{item}}</a></li>
+
+                <li class="page-item {{next.class}}">
+                    <a class="page-link" ng-href="{{next.href}}"  aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>  
+    </div>
+</section>

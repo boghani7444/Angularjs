@@ -1,0 +1,69 @@
+<section class="page-padding"  data-ng-controller="myprofileCtrl">
+
+    <div class="divider"></div>
+
+  <div>
+    <div class="md-whiteframe-z1">
+      <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+          <h3>My Company Profile</h3>
+          <span class="flex"></span>
+          <button class="md-icon-button md-button " aria-label="View Source">
+            <md-icon md-svg-icon="dist/img/icons/ic_grid_on_24px.svg"></md-icon>
+          </button>
+        </div>
+      </md-toolbar>
+
+      <md-content>
+        <div class="md-content__body">
+            <form name="form_constraints" class="form-validation" novalidate >
+              
+              <div class="form-group">
+                
+                  <label><strong>Name : </strong></label>                  
+                  {{firstname}} {{lastname}}
+                
+              </div>
+              <div class="form-group">
+                
+                  <label><strong>Email : </strong></label>                  
+                  {{email}}
+                
+              </div>  
+              <div class="form-group">
+                
+                  <label><strong>Company Name : </strong></label>                  
+                  {{companyName}}
+                
+              </div>  
+              <div class="form-group">
+                
+                  <label><strong>Company URL : </strong></label>                  
+                  {{companyUrl}}
+                
+              </div>    
+              <div class="form-group">
+                
+                  <label><strong>Message  : </strong></label>                  
+                  {{message}}
+                
+              </div>      
+              
+              
+              <div class="form-group">
+                  
+              <text-angular ng-model="htmlVariable"></text-angular>
+              </div>
+               
+                
+                  
+                  
+              
+              
+
+            </form>
+        </div>
+      </md-content>
+    </div>
+  </div>
+</section>    

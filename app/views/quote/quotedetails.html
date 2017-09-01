@@ -1,0 +1,178 @@
+<section class="page-padding"  data-ng-controller="quotedetailCtrl">
+    <div class="divider"></div>
+    <div>
+        <div class="md-whiteframe-z1">
+            <md-toolbar class="md-accent">
+                <div class="md-toolbar-tools">
+                    <h3 style="text-transform:capitalize">{{qtp}} Quote Details</h3>
+                    <span class="flex"></span>
+                    <button class="md-icon-button md-button " ng-click="back()" title="Go back">
+                        <md-icon md-svg-icon="dist/img/icons/ic_arrow_back_24px.svg"></md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <div class="md-content__body">
+                    <aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside>
+                    <section class="table-responsive">
+
+                        <table class="table table-striped" ng-repeat="quotedd in quote.loaded">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="md-whiteframe-z1">
+                                        <md-toolbar class="md-primary ">
+                                            <div class="md-toolbar-tools">
+                                                <h3 class="col-md-5 nopadding">Quote: <b>{{(quote.quotedata.title) ? quote.quotedata.title :  quote.quotedata.id}}</b></h3>
+                                                <h3 class="col-md-7 text-right">by: <b>{{quote.quotedata.first_name}} {{quote.quotedata.last_name}}</b> on: <b>{{quote.quotedata.date_create| badDateToISO | date:'dd/MM/yyyy h:mma'}}</b></h3>
+                                            </div>
+                                        </md-toolbar>
+
+                                        <div class="quote md-content__body" ng-if="qtp == 'shared'" style="padding-bottom:0px !important;"> 
+                                            <div class="row">
+                                                <div class="col-md-3"><b>Hard Disk Space:</b> {{quote.quotedata.hdd_space| quoteunlimited}} </div>
+                                                <div class="col-md-3"><b>Data Transfer:</b> {{quote.quotedata.data_transfer| quoteunlimited}} </div>
+                                                <div class="col-md-3"><b>Number of Emails:</b> {{quote.quotedata.email_accounts}}</div>
+                                                <div class="col-md-3"><b>Price:</b> ${{quote.quotedata.monthly_price}} / month</div>
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="(quote.quotedata | quoteservicecount) > 0">
+                                                <div class="col-md-12"><b>Services:</b>	{{quote.quotedata| quoteservice}}                    
+                                                </div>
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="quote.quotedata.quote_desc != ''">
+                                                <div class="col-md-12"><b>Additional Requirements:</b> {{quote.quotedata.quote_desc}} </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="quote md-content__body" ng-if="qtp == 'dedicated'" style="padding-bottom:0px !important;"> 
+                                            <div class="row">
+                                                <div class="col-md-3" ng-if="quote.quotedata.hdd_space != ''"><b>Hard Disk Space:</b> {{quote.quotedata.hdd_space| quoteunlimited}} </div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.hdd_rpm > 0"><b>Hard Disk Rpm:</b> {{quote.quotedata.hdd_rpm}} </div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.hdd_count != 0"><b>Hrad Disk Count:</b> {{quote.quotedata.hdd_count}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.hdd_type != ''"><b>Hard Disk Type:</b> {{quote.quotedata.hdd_type}} </div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.os != ''"><b>OS:</b> {{(quote.quotedata.os == 'W'? 'Windows' : 'Linux' )}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.managed != ''"><b>Managed:</b> {{(quote.quotedata.managed == 'N'?'No':'Yes')}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.price > 0"><b>Price:</b> ${{quote.quotedata.price}} / month</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.ram > 0"><b>RAM:</b> {{quote.quotedata.ram}} GB</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.processor != ''"><b>Server Processor:</b> {{quote.quotedata.processor}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.raid > 0"><b>Raid :</b> {{quote.quotedata.raid}}</div>
+                                                
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="(quote.quotedata | quoteservicecount) > 0">
+                                                <div class="col-md-12"><b>Services:</b>                 
+                                                    {{quote.quotedata| quoteservice}}                    
+                                                </div>
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="quote.quotedata.quote_desc != ''">
+                                                <div class="col-md-12"><b>Additional Requirements:</b> {{quote.quotedata.quote_desc}} </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="quote md-content__body" ng-if="qtp == 'vps'" style="padding-bottom:0px !important;">  
+                                            <div class="row">
+                                                <div class="col-md-3" ng-if="quote.quotedata.hdd_space != 0 && quote.quotedata.hdd_space != ''"><b>Hard Disk Space:</b> {{quote.quotedata.hdd_space| quoteunlimited}} </div>
+                                               <div class="col-md-3" ng-if="quote.quotedata.hdd_type != ''"><b>Hard Disk Type:</b> {{quote.quotedata.hdd_type}} </div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.data_transfer != '' && quote.quotedata.data_transfer != 0"><b>Data Transfer:</b> {{quote.quotedata.data_transfer| quoteunlimited}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.ram > 0"><b>RAM:</b> {{(quote.quotedata.ram >= 1000) ? (quote.quotedata.ram/1000) : quote.quotedata.ram }} {{ (quote.quotedata.ram >= 1000) ? 'GB' :  'MB' }}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.managed != ''"><b>Managed:</b> {{(quote.quotedata.managed == 'Y') ? 'Yes' : 'No'}}</div>
+                                                <div class="col-md-3" ng-if="quote.quotedata.price > 0"><b>Price:</b> {{quote.quotedata.price|  currency : $}} / month</div>
+                                                 <div class="col-md-3" ng-if="quote.quotedata.os != ''"><b>OS:</b> {{(quote.quotedata.os )}}</div>
+                                                 <div class="col-md-3" ng-if="quote.quotedata.data_center != ''"><b>Datacenter Location:</b> {{(quote.quotedata.data_center )}}</div>
+                                                
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="(quote.quotedata | quoteservicecount) > 0">
+                                                <div class="col-md-12"><b>Services:</b>                
+                                                    {{quote.quotedata| quoteservice}}                    
+                                                </div>
+                                            </div>
+                                            <div class="clear"><br></div>
+                                            <div class="row" ng-if="quote.quotedata.quote_desc != ''">
+                                                <div class="col-md-12"><b>Additional Requirements:</b> {{quote.quotedata.quote_desc}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="quote md-content__body" style="padding-top:0px !important; ">
+                                            <div class="clear"><hr style="padding:0px;" /></div>
+                                            <div class="clear"></div>
+                                            <div class="row">
+                                                <div class="col-md-2"><b>Suggested Plan: </b>
+                                                </div>
+                                                <div class="col-md-5" >
+                                                    <md-input-container class="nopadding"> 
+                                                        <md-select placeholder="Please select" aria-label="Please select" data-ng-model="quote.plandata.suggestedplan.id" class="nopadding" id="suggestedplan">
+                                                            <md-optgroup label="Shared Plans">
+                                                                <md-option data-ng-repeat="sharedplan in quote.plandata.allplans.sharedplans" value="S-{{sharedplan.id}}">{{sharedplan.name}} (${{sharedplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Windows Plans">
+                                                                <md-option data-ng-repeat="windowsplan in quote.plandata.allplans.windowsplans" value="WS-{{windowsplan.id}}">{{windowsplan.name}} (${{windowsplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="WordPress Plans">
+                                                                <md-option data-ng-repeat="wordpressplan in quote.plandata.allplans.wordpressplans" value="WP-{{wordpressplan.id}}">{{wordpressplan.name}} (${{wordpressplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Cloud Shared Plans">
+                                                                <md-option data-ng-repeat="cloudsharedplan in quote.plandata.allplans.cloudsharedplans" value="CS-{{cloudsharedplan.id}}">{{cloudsharedplan.name}} (${{cloudsharedplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Dedicated Plans">
+                                                                <md-option data-ng-repeat="dedicatedplan in quote.plandata.allplans.dedicatedplans" value="D-{{dedicatedplan.id}}">{{dedicatedplan.name}} (${{dedicatedplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="VPS Plans">
+                                                                <md-option data-ng-repeat="vpsplan in quote.plandata.allplans.vpsplans" value="V-{{vpsplan.id}}">{{vpsplan.name}} (${{vpsplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Windows VPS Plans">
+                                                                <md-option data-ng-repeat="windowsvpsplan in quote.plandata.allplans.windowsvpsplans" value="WV-{{windowsvpsplan.id}}">{{windowsvpsplan.name}} (${{windowsvpsplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Cloud VPS Plans">
+                                                                <md-option data-ng-repeat="cloudvpsplan in quote.plandata.allplans.cloudvpsplans" value="CV-{{cloudvpsplan.id}}">{{cloudvpsplan.name}} (${{cloudvpsplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                            <md-optgroup label="Free Plans">
+                                                                <md-option data-ng-repeat="freeplan in quote.plandata.allplans.freeplans" value="FP-{{freeplan.id}}">{{freeplan.name}} (${{freeplan.price}}/month)</md-option>
+                                                            </md-optgroup>
+                                                        </md-select>
+                                                    </md-input-container> 
+                                                    <a ng-show="quote.plandata.suggestedplan.plan_url" href="{{quote.plandata.suggestedplan.plan_url}}" target="_blank" title="View Suggested Plan">
+                                                        <md-icon md-svg-src="dist/img/icons/ic_pageview_24px.svg" class="ng-isolate-scope md-primary" style="float:right;" aria-hidden="true" ></md-icon></a>
+                                                </div>
+
+                                                <div class="col-md-3 text-right">
+                                                    <b>Price Quoted (Monthly):</b> </div>
+                                                <div class="col-md-2">
+                                                    <md-input-container md-has-icons style="height: 30px !important;padding-top:0px !important;padding-bottom:0px !important;margin: 0px;" >
+                                                        <md-icon md-svg-src="dist/img/icons/ic_attach_money_24px.svg" class="ng-isolate-scope" aria-hidden="true"></md-icon>
+                                                        <input 	type="number"
+                                                                class="form-control nopadding"
+                                                                data-ng-trim='false'
+                                                                data-ng-model="quote.quotecommu.quotation_price"
+                                                                >
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-if="quote.quotecommu.date_created">
+                                <td style="border-right:1px solid #eceeef"><img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/company-logo/{{quote.quotecommu.id_company}}.jpg" title="Online"><div class="online" title="Online"></div> <small><b>You</b></small></td>
+                                <td style="white-space: pre-line;">{{quote.quotecommu.description}}<br><div align="right"><small style="color:grey" class="text-right">{{quote.quotecommu.date_created| badDateToISO | date:'dd/MM/yyyy h:mma' }}</small></div></td>
+                            </tr>
+                            <tr data-ng-repeat="reply in quote.quotecommudetails">
+                                <td style="width:20%;border-right:1px solid #eceeef"> <img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/company-logo/{{quote.quotecommu.id_company}}.jpg" ng-show="reply.sent_by == 1" title="Online"> <img class="header__user-picture"  ng-src="https://www.thewebhostingdir.com/storage/app/avatar/{{quote.quotecommu.id_user}}.jpg" ng-show="reply.sent_by == 0 && quote.quotecommu.fbid ==0" title="{{quote.quotecommu.last_online == 1 ? 'Online' : 'Offline'}}"> <img class="header__user-picture"  ng-src="https://graph.facebook.com/v2.6/{{ quote.quotecommu.fbid }}/picture" ng-show="reply.sent_by == 0 && quote.quotecommu.fbid !=0" title="{{quote.quotecommu.last_online == 1 ? 'Online' : 'Offline'}}"><div class="online" ng-show="reply.sent_by == 1" title="Online" ></div><div class="{{quote.quotecommu.last_online == 1 ? 'online' : 'offline'}}" ng-show="reply.sent_by == 0" title="{{quote.quotecommu.last_online == 1 ? 'Online' : 'Offline'}}"></div> <small><b>{{reply.sent_by == 1 ? 'You' : quote.quotecommu.name }}</b></small></td>
+                                <td style="white-space: pre-line;">{{reply.message}}<br><div align="right"><small style="color:grey" class="text-right">{{reply.date_created| badDateToISO | date:'dd/MM/yyyy h:mma' }}</small></div></td></tr>
+                            <tr ng-hide="quote.quotedata.status == 'C'">
+                                <td style="border-right:1px solid #eceeef"><b>Post reply:</b></td>
+                                <td><textarea id="txtreply" ng-model="quote.txtreply" name="txtreply" cols="90" rows="5" class="form-control"></textarea></td>
+                            </tr>
+                            <tr ng-hide="quote.quotedata.status == 'C'">
+                                <td style="text-align: center;" colspan="2"><button type="button" class="md-raised md-primary md-button md-ink-ripple" aria-label="Button" ng-click="postreply(quote.quotecommu.id);"  ><span class="ng-scope">Send Reply</span></button><aside data-ng-include="'app/common/message/message.html'" id="msgarea"></aside></td>
+                            </tr>
+                            <tr ng-show="quote.quotedata.status == 'C'"><td colspan="2" style="text-align:center"><b>This quote is marked as closed</b></td></tr>
+                        </table>
+                    </section>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</section>    
